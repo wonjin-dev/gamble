@@ -1,3 +1,21 @@
 {
-  "extends": "next/core-web-vitals"
+  "plugins": ["import"],
+  "extends": ["next/core-web-vitals"],
+  "rules": {
+    "import/order": [
+      "error",
+      {
+        "groups": ["builtin", "external", "internal", ["parent", "sibling"], "index", ["object", "type"]],
+        "pathGroups": [
+          {
+            "pattern": "React",
+            "group": "external",
+            "position": "after"
+          }
+        ],
+        "pathGroupsExcludedImportTypes": ["react"]
+      }
+    ],
+    "no-unused-vars": "warn"
+  }
 }
