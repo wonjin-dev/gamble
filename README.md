@@ -2,7 +2,7 @@
 
 프로젝트를 처음 실행시키신다면 `npm run init`을 통해 프로젝트를 쉽게 확인하실 수 있습니다<br>
 `npm run start`를 통해 프로젝트를 확인하실 수 있습니다<br>
-`npm run sb`를 통해 스토리북을 시작할 수 있습니다<br>
+`npm run storybook`을 통해 스토리북을 시작할 수 있습니다<br>
 `npm run test`를 통해 단위 테스트를 진행할 수 있습니다<br>
 `npm run e2e`를 통해 cypress를 이용한 프로젝트 통합 테스트를 진행할 수 있습니다
 
