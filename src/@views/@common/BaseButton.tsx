@@ -53,4 +53,5 @@ const StyledButton = styled.button<{
   padding: ${rem(6)};
   border: ${(props) => `${rem(1)} solid ${props.borderColor}`};
   border-radius: ${rem(8)};
+  cursor: pointer;
 `;
