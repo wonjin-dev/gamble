@@ -7,9 +7,9 @@ const createJestConfig = nextJest({
 const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
-    '^@views/(.*)$': ['<rootDir>/src/@views/$1'],
-    '^@components/(.*)$': ['<rootDir>/src/@views/@common/$1'],
-    '^styles/(.*)$': ['<rootDir>/src/styles/$1'],
+    '^@styles/(.*)$': ['<rootDir>/src/styles/$1'],
+    '^@views/(.*)$': ['<rootDir>/src/views/$1'],
+    '^@components/(.*)$': ['<rootDir>/src/views/$1common/components/*'],
   },
   testEnvironment: 'jest-environment-jsdom',
 };

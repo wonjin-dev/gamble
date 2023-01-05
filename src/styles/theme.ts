@@ -1,6 +1,6 @@
 export const BASE_FONT_SIZE = 12;
 
-export const rem = (numb: number) => `${numb / BASE_FONT_SIZE}rem`;
+export const rem = (numb: number, base?: number) => (base ? `${numb / base}rem` : `${numb / BASE_FONT_SIZE}rem`);
 
 export const COLORS = {
   BLACK: `rgb(0,0,0)`,
