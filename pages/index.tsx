@@ -1,8 +1,8 @@
 import {NextPage} from 'next';
-import LandingScreen from '@views/index';
+import GambleScreen from '@views/Gamble/index';
 
 const LandingPage: NextPage = () => {
-  return <LandingScreen />;
+  return <GambleScreen />;
 };
 
 export default LandingPage;

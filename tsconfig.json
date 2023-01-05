@@ -17,6 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@views/*": ["src/@views/*"],
+      "@components/*": ["src/@views/@common/*"],
       "@styles/*": ["src/styles/*"]
     }
   },
