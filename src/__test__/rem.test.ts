@@ -9,12 +9,12 @@ describe('rem 테스트', () => {
     expect(result).toMatch('rem');
   });
 
-  it('올바르게 변환한다', () => {
+  it('폰트 사이즈를 기준으로 올바르게 변환한다', () => {
     const originExpected = `${testSize / BASE_FONT_SIZE}rem`;
     const TEST_BASE_FONT_SIZE = 14;
     const changedRem = `${testSize / TEST_BASE_FONT_SIZE}rem`;
 
-    expect(originExpected).toBe(rem(testSize));
-    expect(changedRem).toBe(rem(testSize, TEST_BASE_FONT_SIZE));
+    expect(rem(testSize)).toBe(originExpected);
+    expect(rem(testSize, TEST_BASE_FONT_SIZE)).toBe(changedRem);
   });
 });
