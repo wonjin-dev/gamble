@@ -8,13 +8,17 @@ export const enum EnchantScore {
   NONE,
 }
 
-type EnchantColor = 'black' | 'blue' | 'red';
+export const enum EnchantColor {
+  BLACK = 'black',
+  BLUE = 'blue',
+  RED = 'red',
+}
 
 interface EnchantProps {
   color: EnchantColor;
 }
 
-const Enchant: FC<EnchantProps> = ({color = 'black'}) => {
+const Enchant: FC<EnchantProps> = ({color = EnchantColor.BLACK}) => {
   return (
     <Container color={color} />
   )
