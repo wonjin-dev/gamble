@@ -1,10 +1,7 @@
 import styled from "@emotion/styled";
 import {FC, useCallback} from "react";
-import Enchant from "@views/Gamble/components/Section/Enchant";
+import Enchant, {EnchantScore} from "@views/Gamble/components/Section/Enchant";
 import {rem} from "@styles/theme";
-
-export type EnchantScore = 'success' | 'fail' | 'none';
-export type EnchantColor = 'black' | 'blue' | 'red';
 
 interface ScoreProps {
   scoreArr: EnchantScore[];
@@ -12,11 +9,11 @@ interface ScoreProps {
 
 const Score: FC<ScoreProps> = ({scoreArr}) => {
   const transformScore = useCallback((score: EnchantScore,  index: number) => {
-    if(score === 'success') {
+    if(score === 0) {
       return (
         <Enchant key={index} color={'blue'} />
       )
-    } else if(score === 'fail') {
+    } else if(score === 1) {
       return (
         <Enchant key={index} color={'red'} />
       )

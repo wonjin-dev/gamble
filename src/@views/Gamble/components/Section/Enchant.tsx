@@ -1,7 +1,13 @@
 import styled from "@emotion/styled";
 import {FC} from "react";
-import {EnchantColor} from "@views/Gamble/components/Section/Score";
 import {rem} from "@styles/theme";
+
+export enum EnchantScore {
+  SUCCESS,
+  FAIL,
+  NONE,
+}
+type EnchantColor = 'black' | 'blue' | 'red';
 
 interface EnchantProps {
   color: EnchantColor;
