@@ -2,11 +2,12 @@ import styled from "@emotion/styled";
 import {FC} from "react";
 import {rem} from "@styles/theme";
 
-export enum EnchantScore {
+export const enum EnchantScore {
   SUCCESS,
   FAIL,
   NONE,
 }
+
 type EnchantColor = 'black' | 'blue' | 'red';
 
 interface EnchantProps {
