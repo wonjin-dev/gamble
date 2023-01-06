@@ -8,6 +8,7 @@ const customJestConfig = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
     '^@styles/(.*)$': ['<rootDir>/src/styles/$1'],
+    '^@constants/(.*)$': ['<rootDir>/src/constants/$1'],
     '^@views/(.*)$': ['<rootDir>/src/views/$1'],
     '^@components/(.*)$': ['<rootDir>/src/views/$1common/components/*'],
   },
