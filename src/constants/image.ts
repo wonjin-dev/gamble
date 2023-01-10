@@ -9,6 +9,6 @@ export const IMAGES = {
   GOLDFISH: '/img/GOLDFISH.png',
   SLOTH: '/img/SLOTH.png',
   CHEETAH: '/img/CHEETAH.png',
-  PROBOSIC_MONKEY: '/img/PROBOSIC_MONKEY.png',
+  PROBOSCIS_MONKEY: '/img/PROBOSCIS_MONKEY.png',
   WOLF: '/img/WOLF.png',
 };
