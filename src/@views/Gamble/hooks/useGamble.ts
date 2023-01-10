@@ -9,7 +9,7 @@ export const enum ResultType {
   GOLDFISH,
   SLOTH,
   CHEETAH,
-  PROBOSIC_MONKEY,
+  PROBOSCIS_MONKEY,
   WOLF,
 }
 
@@ -48,8 +48,8 @@ const useGamble = () => {
           return IMAGES.CHEETAH;
         }
 
-        case ResultType.PROBOSIC_MONKEY: {
-          return IMAGES.PROBOSIC_MONKEY;
+        case ResultType.PROBOSCIS_MONKEY: {
+          return IMAGES.PROBOSCIS_MONKEY;
         }
 
         case ResultType.WOLF: {
