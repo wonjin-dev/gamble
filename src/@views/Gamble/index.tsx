@@ -1,17 +1,13 @@
 import {FC, Fragment} from 'react';
 import styled from '@emotion/styled';
-import GambleSection from '@views/Gamble/components/GambleSection';
+import GambleSection from '@views/Gamble/components/Section';
 import BaseButton from '@components/BaseButton';
 import {rem} from '@styles/theme';
-import useGamble from './hooks/useGamble';
 
 const GambleScreen: FC = () => {
-  const {useEnchant} = useGamble();
-  const {enchant} = useEnchant();
-
   return (
     <Fragment>
-      <GambleSection onEnchantClick={() => enchant()} />
+      <GambleSection />
       <ButtonsWrapper>
         <BaseButton
           value={'다시 뽑기'}

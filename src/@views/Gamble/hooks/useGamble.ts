@@ -13,6 +13,13 @@ export const enum ResultType {
   WOLF,
 }
 
+export const enum AbilityType {
+  STRENGTH = '근력',
+  INTELLIGENCE = '똑똑함',
+  SPEED = '빠름',
+  BEAUTY = '아름다움',
+}
+
 const useGamble = () => {
   const useGetResult = (result: ResultType) => {
     const resultImg = useMemo(() => {
@@ -55,21 +62,21 @@ const useGamble = () => {
   };
 
   const useEnchant = () => {
-    const [status, setStatus] = useState<boolean[]>([]);
+    const [score, setScore] = useState<boolean[]>([]);
     const [successProbability, setSuccessProbability] = useState<number>(75);
 
-    const isOver = useMemo(() => status.length === 10, [status.length]);
+    const isOver = useMemo(() => score.length === 10, [score.length]);
 
     const enchant = useCallback(() => {
       if (!isOver) {
         const res = gamble(successProbability);
         if (res) {
-          setStatus((prev) => [...prev, true]);
+          setScore((prev) => [...prev, true]);
           if (successProbability > 25) {
             setSuccessProbability((prev) => prev - 10);
           }
         } else {
-          setStatus((prev) => [...prev, false]);
+          setScore((prev) => [...prev, false]);
 
           if (successProbability < 75) {
             setSuccessProbability((prev) => prev + 10);
@@ -78,7 +85,7 @@ const useGamble = () => {
       }
     }, [isOver, successProbability]);
 
-    return {status, successProbability, enchant};
+    return {score, successProbability, enchant};
   };
 
   return {useGetResult, useEnchant};
