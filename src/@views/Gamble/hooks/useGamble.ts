@@ -1,6 +1,6 @@
 import {useCallback, useMemo, useState} from 'react';
+import {gamble} from 'src/utils/generators';
 import {IMAGES} from 'src/constants/image';
-import {gamble} from 'src/utils/gamble';
 
 export const enum ResultType {
   TIGER,

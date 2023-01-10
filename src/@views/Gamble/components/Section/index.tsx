@@ -8,13 +8,16 @@ import useGamble, {AbilityType} from '../../hooks/useGamble';
 
 const GambleSection: FC = ({}) => {
   const {useEnchant} = useGamble();
-  const {score, enchant} = useEnchant();
+  const {score, successProbability, enchant} = useEnchant();
 
   return (
     <Container>
-      <AbilityImg src={IMAGES.SPEED} />
+      <AbilityImg src={IMAGES.BEAUTY} />
       <Content>
-        <Ability>{AbilityType.BEAUTY}</Ability>
+        <FlexWrapper>
+          <Ability>{AbilityType.BEAUTY}</Ability>
+          <p>확률: {successProbability}</p>
+        </FlexWrapper>
         <Score scoreArr={score} />
       </Content>
       <BaseButton value={'강화'} onClick={() => enchant()} width={50} height={32} />
@@ -25,6 +28,7 @@ const GambleSection: FC = ({}) => {
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 0 ${rem(4)};
 `;
 
@@ -40,6 +44,12 @@ const AbilityImg = styled.img`
 
 const Ability = styled.div`
   font-size: ${rem(10)};
+`;
+
+const FlexWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 export default GambleSection;

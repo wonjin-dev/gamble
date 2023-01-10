@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {FC} from 'react';
-import {rem} from '@styles/theme';
+import {COLORS, rem} from '@styles/theme';
 
 interface Props {
   scoreArr: boolean[];
@@ -30,5 +30,5 @@ const GambleResult = styled.div<{success: boolean}>`
   width: ${rem(16)};
   height: ${rem(16)};
   border-radius: 50%;
-  background-color: ${({success}) => (success ? 'blue' : 'red')};
+  background-color: ${({success}) => (success ? `${COLORS.GAMBLE_SUCCESS}` : `${COLORS.GAMBLE_FAIL}`)};
 `;
