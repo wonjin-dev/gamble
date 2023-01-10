@@ -1,4 +1,5 @@
-import {useMemo} from 'react';
+import {useCallback, useMemo, useState} from 'react';
+import {gamble} from 'src/utils/generators';
 import {IMAGES} from 'src/constants/image';
 
 export const enum ResultType {
@@ -8,8 +9,15 @@ export const enum ResultType {
   GOLDFISH,
   SLOTH,
   CHEETAH,
-  PROBOSIC_MONKEY,
+  PROBOSCIS_MONKEY,
   WOLF,
+}
+
+export const enum AbilityType {
+  STRENGTH = '근력',
+  INTELLIGENCE = '똑똑함',
+  SPEED = '빠름',
+  BEAUTY = '아름다움',
 }
 
 const useGamble = () => {
@@ -40,8 +48,8 @@ const useGamble = () => {
           return IMAGES.CHEETAH;
         }
 
-        case ResultType.PROBOSIC_MONKEY: {
-          return IMAGES.PROBOSIC_MONKEY;
+        case ResultType.PROBOSCIS_MONKEY: {
+          return IMAGES.PROBOSCIS_MONKEY;
         }
 
         case ResultType.WOLF: {
@@ -53,7 +61,34 @@ const useGamble = () => {
     return resultImg;
   };
 
-  return {useGetResult};
+  const useEnchant = () => {
+    const [score, setScore] = useState<boolean[]>([]);
+    const [successProbability, setSuccessProbability] = useState<number>(75);
+
+    const isOver = useMemo(() => score.length === 10, [score.length]);
+
+    const enchant = useCallback(() => {
+      if (!isOver) {
+        const res = gamble(successProbability);
+        if (res) {
+          setScore((prev) => [...prev, true]);
+          if (successProbability > 25) {
+            setSuccessProbability((prev) => prev - 10);
+          }
+        } else {
+          setScore((prev) => [...prev, false]);
+
+          if (successProbability < 75) {
+            setSuccessProbability((prev) => prev + 10);
+          }
+        }
+      }
+    }, [isOver, successProbability]);
+
+    return {score, successProbability, enchant};
+  };
+
+  return {useGetResult, useEnchant};
 };
 
 export default useGamble;
