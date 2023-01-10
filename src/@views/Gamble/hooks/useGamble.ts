@@ -1,5 +1,6 @@
-import {useMemo} from 'react';
+import {useCallback, useMemo, useState} from 'react';
 import {IMAGES} from 'src/constants/image';
+import {gamble} from 'src/utils/gamble';
 
 export const enum ResultType {
   TIGER,
@@ -53,7 +54,34 @@ const useGamble = () => {
     return resultImg;
   };
 
-  return {useGetResult};
+  const useEnchant = () => {
+    const [status, setStatus] = useState<boolean[]>([]);
+    const [successProbability, setSuccessProbability] = useState<number>(75);
+
+    const isOver = useMemo(() => status.length === 10, [status.length]);
+
+    const enchant = useCallback(() => {
+      if (!isOver) {
+        const res = gamble(successProbability);
+        if (res) {
+          setStatus((prev) => [...prev, true]);
+          if (successProbability > 25) {
+            setSuccessProbability((prev) => prev - 10);
+          }
+        } else {
+          setStatus((prev) => [...prev, false]);
+
+          if (successProbability < 75) {
+            setSuccessProbability((prev) => prev + 10);
+          }
+        }
+      }
+    }, [isOver, successProbability]);
+
+    return {status, successProbability, enchant};
+  };
+
+  return {useGetResult, useEnchant};
 };
 
 export default useGamble;

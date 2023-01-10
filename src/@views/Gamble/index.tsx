@@ -1,19 +1,17 @@
-import {FC} from 'react';
+import {FC, Fragment} from 'react';
 import styled from '@emotion/styled';
-import Result from '@views/Gamble/components/Result';
 import GambleSection from '@views/Gamble/components/GambleSection';
 import BaseButton from '@components/BaseButton';
 import {rem} from '@styles/theme';
-import {ResultType} from './hooks/useGamble';
+import useGamble from './hooks/useGamble';
 
 const GambleScreen: FC = () => {
+  const {useEnchant} = useGamble();
+  const {enchant} = useEnchant();
+
   return (
-    <>
-      <Result result={ResultType.CHEETAH} />
-      <>
-        <GambleSection onEnchantClick={() => console.log('Gamble!')} />
-        <GambleSection onEnchantClick={() => console.log('Gamble!')} />
-      </>
+    <Fragment>
+      <GambleSection onEnchantClick={() => enchant()} />
       <ButtonsWrapper>
         <BaseButton
           value={'다시 뽑기'}
@@ -30,7 +28,7 @@ const GambleScreen: FC = () => {
           }}
         />
       </ButtonsWrapper>
-    </>
+    </Fragment>
   );
 };
 
