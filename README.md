@@ -21,7 +21,7 @@
 
 <details>
   <summary>
-    <h3>convention<h3>
+    <h3>convention</h3>
   </summary>
     <h3>commit message</h3>
       
@@ -49,6 +49,10 @@ ex) `feat` / `wj` / `set-up-project`
 
 <hr>
 
+<h3>
+  interface & model
+</h3>
+
 ```
 `~Schema` : API response 모델
 
@@ -59,6 +63,19 @@ ex) `feat` / `wj` / `set-up-project`
 상수: UPPER_CASE
 컴포넌트, 타입: PascalCase
 ETC: camelCase
+```
+
+
+<hr>
+
+<h3>
+  test
+</h3>
+
+```
+describe('[domain] testFn', () => {
+    it('expect Message', () => {})
+});
 ```
 
 </details>

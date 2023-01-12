@@ -9,7 +9,7 @@ describe('rem 테스트', () => {
     expect(result).toMatch('rem');
   });
 
-  it('폰트 사이즈를 기준으로 올바르게 변환한다', () => {
+  it('폰음트 사이즈를 기준으로 올바르게 변환한다', () => {
     const originExpected = `${testSize / BASE_FONT_SIZE}rem`;
     const TEST_BASE_FONT_SIZE = 14;
     const changedRem = `${testSize / TEST_BASE_FONT_SIZE}rem`;
