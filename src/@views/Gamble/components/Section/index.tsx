@@ -3,24 +3,32 @@ import {FC} from 'react';
 import BaseButton from '@components/BaseButton';
 import {rem} from '@styles/theme';
 import Score from '@views/Gamble/components/Section/Score';
-import {IMAGES} from '@constants/image';
-import useGamble, {AbilityType} from '../../hooks/useGamble';
+import useProbability from 'src/hooks/useProbability';
+import {GambleSectionList, useEnchant} from '@views/Gamble/hooks/useEnchant';
+import useGamble from '@views/Gamble/hooks/useGamble';
 
-const GambleSection: FC = ({}) => {
-  const {useEnchant} = useGamble();
-  const {score, successProbability, enchant} = useEnchant();
+interface Props {
+  type: GambleSectionList;
+}
+
+const GambleSection: FC<Props> = ({type}) => {
+  const {abilityImage} = useGamble();
+  const {pbt, failPbt} = useProbability();
+  const {gambleDetail, enchant} = useEnchant();
+  const section = gambleDetail(type);
+  const img = abilityImage(section?.ability);
 
   return (
     <Container>
-      <AbilityImg src={IMAGES.BEAUTY} />
+      <AbilityImg src={img} />
       <Content>
         <FlexWrapper>
-          <Ability>{AbilityType.BEAUTY}</Ability>
-          <p>확률: {successProbability}</p>
+          <Ability>{section?.ability}</Ability>
+          <p>확률: {type === 'negative' ? failPbt : pbt}</p>
         </FlexWrapper>
-        <Score scoreArr={score} />
+        <Score scoreArr={section?.score || []} />
       </Content>
-      <BaseButton value={'강화'} onClick={() => enchant()} width={50} height={32} />
+      <BaseButton value={'강화'} onClick={() => enchant(type)} width={50} height={32} />
     </Container>
   );
 };

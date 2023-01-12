@@ -1,6 +1,6 @@
-import {useCallback, useMemo, useState} from 'react';
-import {gamble} from 'src/utils/generators';
-import {IMAGES} from 'src/constants/image';
+import {useMemo, useState} from 'react';
+import {IMAGES} from '@constants/image';
+import {randomNumberArrayGenerator} from 'src/utils/generators';
 
 export const enum ResultType {
   TIGER,
@@ -20,7 +20,31 @@ export const enum AbilityType {
   BEAUTY = '아름다움',
 }
 
+const abilityList = [AbilityType.BEAUTY, AbilityType.INTELLIGENCE, AbilityType.SPEED, AbilityType.STRENGTH];
+
 const useGamble = () => {
+  const abilityGen = randomNumberArrayGenerator(3, 4);
+  const initAbility = abilityGen.map((randomNumber) => abilityList[randomNumber]);
+  const [abilities] = useState<AbilityType[]>(initAbility);
+
+  const abilityImage = useMemo(
+    () => (ability?: AbilityType) => {
+      if (ability === AbilityType.BEAUTY) {
+        return IMAGES.BEAUTY;
+      }
+      if (ability === AbilityType.INTELLIGENCE) {
+        return IMAGES.INTELLIGENCE;
+      }
+      if (ability === AbilityType.SPEED) {
+        return IMAGES.SPEED;
+      }
+      if (ability === AbilityType.STRENGTH) {
+        return IMAGES.STRENGTH;
+      }
+    },
+    []
+  );
+
   const useGetResult = (result: ResultType) => {
     const resultImg = useMemo(() => {
       switch (result) {
@@ -61,34 +85,7 @@ const useGamble = () => {
     return resultImg;
   };
 
-  const useEnchant = () => {
-    const [score, setScore] = useState<boolean[]>([]);
-    const [successProbability, setSuccessProbability] = useState<number>(75);
-
-    const isOver = useMemo(() => score.length === 10, [score.length]);
-
-    const enchant = useCallback(() => {
-      if (!isOver) {
-        const res = gamble(successProbability);
-        if (res) {
-          setScore((prev) => [...prev, true]);
-          if (successProbability > 25) {
-            setSuccessProbability((prev) => prev - 10);
-          }
-        } else {
-          setScore((prev) => [...prev, false]);
-
-          if (successProbability < 75) {
-            setSuccessProbability((prev) => prev + 10);
-          }
-        }
-      }
-    }, [isOver, successProbability]);
-
-    return {score, successProbability, enchant};
-  };
-
-  return {useGetResult, useEnchant};
+  return {abilities, abilityImage, useGetResult};
 };
 
 export default useGamble;
