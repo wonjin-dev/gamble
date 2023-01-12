@@ -1,6 +1,6 @@
 import {gamble, randomNumberArrayGenerator, randomNumberGenerator} from "../utils/generators";
 
-describe('[유틸] generators', () => {
+describe('[유틸] randomNumberGenerator', () => {
   it('0보다 크고, 특정 숫자 이하의 정수 값을 리턴', () => {
     for(let i = 10; i < 1000; i++) {
       const randomValue = randomNumberGenerator(i);
