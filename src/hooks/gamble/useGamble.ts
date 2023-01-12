@@ -1,6 +1,6 @@
 import {useMemo, useState} from 'react';
+import {randomNumberArrayGenerator} from '@utils/generators';
 import {IMAGES} from '@constants/image';
-import {randomNumberArrayGenerator} from 'src/utils/generators';
 
 export const enum ResultType {
   TIGER,

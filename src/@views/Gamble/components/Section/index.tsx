@@ -3,9 +3,9 @@ import {FC} from 'react';
 import BaseButton from '@components/BaseButton';
 import {rem} from '@styles/theme';
 import Score from '@views/Gamble/components/Section/Score';
-import useProbability from 'src/hooks/useProbability';
-import {GambleSectionList, useEnchant} from '@views/Gamble/hooks/useEnchant';
-import useGamble from '@views/Gamble/hooks/useGamble';
+import useProbability from '@hooks/gamble/useProbability';
+import useGamble from '@hooks/gamble/useGamble';
+import {GambleSectionList, useEnchant} from '@hooks/gamble/useEnchant';
 
 interface Props {
   type: GambleSectionList;

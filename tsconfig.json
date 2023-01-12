@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -20,32 +16,16 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@views/*": [
-        "src/@views/*"
-      ],
-      "@components/*": [
-        "src/@views/@common/*"
-      ],
-      "@styles/*": [
-        "src/styles/*"
-      ],
-      "@constants/*": [
-        "src/constants/*"
-      ]
+      "@views/*": ["src/@views/*"],
+      "@components/*": ["src/@views/@common/*"],
+      "@styles/*": ["src/styles/*"],
+      "@constants/*": ["src/constants/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@store/*": ["src/store/*"]
     },
-    "types": [
-      "jest",
-      "@types/testing-library__jest-dom"
-    ]
+    "types": ["jest", "@types/testing-library__jest-dom"]
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx",
-    "src/**/*"
-  ],
-  "exclude": [
-    "./cypress.config.ts",
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/**/*"],
+  "exclude": ["./cypress.config.ts", "node_modules"]
 }

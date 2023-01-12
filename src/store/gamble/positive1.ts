@@ -1,6 +1,6 @@
 import {atom} from 'recoil';
 import {ATOM_KEY} from '@constants/key';
-import {GambleType} from '@views/Gamble/hooks/useEnchant';
+import {GambleType} from '@hooks/gamble/useEnchant';
 
 const initData: GambleType = {
   ability: undefined,

@@ -1,11 +1,11 @@
 import {useCallback, useEffect, useMemo} from 'react';
 import {useRecoilState} from 'recoil';
-import useProbability from 'src/hooks/useProbability';
-import {negativeAtom} from 'src/store/gamble/negative';
-import {positive1Atom} from 'src/store/gamble/positive1';
-import {positive2Atom} from 'src/store/gamble/positive2';
+import {negativeAtom} from '@store/gamble/negative';
+import {positive1Atom} from '@store/gamble/positive1';
+import {positive2Atom} from '@store/gamble/positive2';
+import useProbability from '@hooks/gamble/useProbability';
 import {gamble} from 'src/utils/generators';
-import useGamble, {AbilityType} from './useGamble';
+import useGamble, {AbilityType} from '@hooks/gamble/useGamble';
 
 export interface GambleSectionType {
   positive1: GambleType;
