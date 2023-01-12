@@ -1,10 +1,9 @@
-import {useCallback, useMemo} from 'react';
+import {useCallback} from 'react';
 import {useRecoilState} from 'recoil';
 import {probabilityAtom} from 'src/store/gamble/pbt';
 
 const useProbability = () => {
   const [pbt, setPbt] = useRecoilState(probabilityAtom);
-  const failPbt = useMemo(() => 100 - pbt, [pbt]);
 
   const success = useCallback(() => {
     if (pbt > 25) {
@@ -18,7 +17,7 @@ const useProbability = () => {
     }
   }, [pbt, setPbt]);
 
-  return {pbt, failPbt, success, fail};
+  return {pbt, success, fail};
 };
 
 export default useProbability;

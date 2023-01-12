@@ -23,7 +23,7 @@ export interface GambleType {
 
 export const useEnchant = () => {
   const {abilities} = useGamble();
-  const {pbt, failPbt, success, fail} = useProbability();
+  const {pbt, success, fail} = useProbability();
   const [positive1, setPositive1] = useRecoilState(positive1Atom);
   const [positive2, setPositive2] = useRecoilState(positive2Atom);
   const [negative, setNeagtive] = useRecoilState(negativeAtom);
@@ -65,12 +65,12 @@ export const useEnchant = () => {
 
   const enchant = useCallback(
     (section: GambleSectionList) => {
+      const res = gamble(pbt);
+
       if (section === 'positive1') {
         if (positive1.isOver) {
           return;
         } else {
-          const res = gamble(pbt);
-
           if (res) {
             setPositive1({...positive1, score: [...positive1.score, true]});
             success();
@@ -85,8 +85,6 @@ export const useEnchant = () => {
         if (positive2.isOver) {
           return;
         } else {
-          const res = gamble(pbt);
-
           if (res) {
             setPositive2({...positive2, score: [...positive2.score, true]});
             success();
@@ -101,7 +99,6 @@ export const useEnchant = () => {
         if (negative.isOver) {
           return;
         } else {
-          const res = gamble(failPbt);
           if (res) {
             setNeagtive({...negative, score: [...negative.score, true]});
             success();
@@ -112,7 +109,7 @@ export const useEnchant = () => {
         }
       }
     },
-    [fail, failPbt, negative, pbt, positive1, positive2, setNeagtive, setPositive1, setPositive2, success]
+    [fail, negative, pbt, positive1, positive2, setNeagtive, setPositive1, setPositive2, success]
   );
 
   return {gambleDetail, enchant};

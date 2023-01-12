@@ -13,7 +13,7 @@ interface Props {
 
 const GambleSection: FC<Props> = ({type}) => {
   const {abilityImage} = useGamble();
-  const {pbt, failPbt} = useProbability();
+  const {pbt} = useProbability();
   const {gambleDetail, enchant} = useEnchant();
   const section = gambleDetail(type);
   const img = abilityImage(section?.ability);
@@ -24,7 +24,7 @@ const GambleSection: FC<Props> = ({type}) => {
       <Content>
         <FlexWrapper>
           <Ability>{section?.ability}</Ability>
-          <p>확률: {type === 'negative' ? failPbt : pbt}</p>
+          <p>확률: {pbt}</p>
         </FlexWrapper>
         <Score scoreArr={section?.score || []} />
       </Content>
