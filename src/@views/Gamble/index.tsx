@@ -7,7 +7,9 @@ import {rem} from '@styles/theme';
 const GambleScreen: FC = () => {
   return (
     <Fragment>
-      <GambleSection />
+      <GambleSection type={'positive1'} />
+      <GambleSection type={'positive2'} />
+      <GambleSection type={'negative'} />
       <ButtonsWrapper>
         <BaseButton
           value={'다시 뽑기'}

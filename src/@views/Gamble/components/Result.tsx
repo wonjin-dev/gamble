@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import {FC} from 'react';
 import {rem} from '@styles/theme';
-import useGamble, {ResultType} from '../hooks/useGamble';
+import useGamble, {ResultType} from '@hooks/gamble/useGamble';
 
 interface Props {
   result: ResultType;
