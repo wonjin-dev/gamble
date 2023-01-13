@@ -51,26 +51,12 @@ export const useEnchant = () => {
     [negative, positive1, positive2]
   );
 
-  useEffect(() => {
-    if (positive1.score.length === 10) {
-      setPositive1({...positive1, isOver: true});
-    }
-    if (positive2.score.length === 10) {
-      setPositive1({...positive2, isOver: true});
-    }
-    if (negative.score.length === 10) {
-      setPositive1({...negative, isOver: true});
-    }
-  }, [negative, positive1, positive2, setPositive1]);
-
   const enchant = useCallback(
     (section: GambleSectionList) => {
       const res = gamble(pbt);
 
       if (section === 'positive1') {
-        if (positive1.isOver) {
-          return;
-        } else {
+        if (positive1.score.length < 10) {
           if (res) {
             setPositive1({...positive1, score: [...positive1.score, true]});
             success();
@@ -82,9 +68,7 @@ export const useEnchant = () => {
       }
 
       if (section === 'positive2') {
-        if (positive2.isOver) {
-          return;
-        } else {
+        if (positive2.score.length < 10) {
           if (res) {
             setPositive2({...positive2, score: [...positive2.score, true]});
             success();
@@ -96,9 +80,7 @@ export const useEnchant = () => {
       }
 
       if (section === 'negative') {
-        if (negative.isOver) {
-          return;
-        } else {
+        if (negative.score.length < 10) {
           if (res) {
             setNeagtive({...negative, score: [...negative.score, true]});
             success();
