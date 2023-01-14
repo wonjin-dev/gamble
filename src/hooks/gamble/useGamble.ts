@@ -1,6 +1,6 @@
 import {useCallback, useMemo} from 'react';
 import {useRecoilState} from 'recoil';
-import {gamble} from '@utils/generators';
+import {abilitiesGenerator, gamble} from '@utils/generators';
 import {positive1Atom} from '@store/gamble/positive1';
 import {positive2Atom} from '@store/gamble/positive2';
 import {negativeAtom} from '@store/gamble/negative';
@@ -30,6 +30,8 @@ export interface GambleType {
 export interface GambleProps {
   enchant: (section: GambleSectionList) => void;
   detail: (section: GambleSectionList) => GambleType | undefined;
+  reset: () => void;
+  isOver: boolean;
 }
 
 const useGamble = (abilities: AbilityType[]): GambleProps => {
@@ -37,6 +39,11 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
   const [positive1, setPositive1] = useRecoilState(positive1Atom);
   const [positive2, setPositive2] = useRecoilState(positive2Atom);
   const [negative, setNeagtive] = useRecoilState(negativeAtom);
+
+  const isOver = useMemo(
+    () => positive1.score.length === 10 && positive2.score.length === 10 && negative.score.length === 10,
+    [negative.score.length, positive1.score.length, positive2.score.length]
+  );
 
   const init = () => {
     setPositive1({...positive1, ability: abilities[0]});
@@ -104,7 +111,14 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
     [fail, negative, pbt, positive1, positive2, setNeagtive, setPositive1, setPositive2, success]
   );
 
-  return {detail, enchant};
+  const reset = () => {
+    const newAbilities = abilitiesGenerator();
+    setPositive1({ability: newAbilities[0], score: []});
+    setPositive2({ability: newAbilities[1], score: []});
+    setNeagtive({ability: newAbilities[2], score: []});
+  };
+
+  return {detail, enchant, reset, isOver};
 };
 
 export default useGamble;
