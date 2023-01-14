@@ -31,6 +31,7 @@ export interface GambleProps {
   enchant: (section: GambleSectionList) => void;
   detail: (section: GambleSectionList) => GambleType | undefined;
   reset: () => void;
+  isOver: boolean;
 }
 
 const useGamble = (abilities: AbilityType[]): GambleProps => {
@@ -38,6 +39,11 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
   const [positive1, setPositive1] = useRecoilState(positive1Atom);
   const [positive2, setPositive2] = useRecoilState(positive2Atom);
   const [negative, setNeagtive] = useRecoilState(negativeAtom);
+
+  const isOver = useMemo(
+    () => positive1.score.length === 10 && positive2.score.length === 10 && negative.score.length === 10,
+    [negative.score.length, positive1.score.length, positive2.score.length]
+  );
 
   const init = () => {
     setPositive1({...positive1, ability: abilities[0]});
@@ -112,7 +118,7 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
     setNeagtive({ability: newAbilities[2], score: []});
   };
 
-  return {detail, enchant, reset};
+  return {detail, enchant, reset, isOver};
 };
 
 export default useGamble;
