@@ -1,32 +1,50 @@
 import styled from '@emotion/styled';
-import {FC} from 'react';
+import {FC, useMemo} from 'react';
 import BaseButton from '@components/BaseButton';
 import {rem} from '@styles/theme';
-import Score from '@views/Gamble/components/Section/Score';
 import useProbability from '@hooks/gamble/useProbability';
-import useGamble from '@hooks/gamble/useGamble';
-import {GambleSectionList, useEnchant} from '@hooks/gamble/useEnchant';
+import {AbilityType, GambleProps, GambleSectionList} from '@hooks/gamble/useGamble';
+import {IMAGES} from '@constants/image';
+import Score from './Score';
 
 interface Props {
   type: GambleSectionList;
+  gamble: GambleProps;
 }
 
-const GambleSection: FC<Props> = ({type}) => {
-  const {abilityImage} = useGamble();
+const GambleSection: FC<Props> = ({type, gamble}) => {
   const {pbt} = useProbability();
-  const {gambleDetail, enchant} = useEnchant();
-  const section = gambleDetail(type);
-  const img = abilityImage(section?.ability);
+  const {detail, enchant} = gamble;
+  const details = useMemo(() => detail(type), [detail, type]);
+
+  const abilityImage = useMemo(() => {
+    if (details) {
+      if (details.ability === AbilityType.BEAUTY) {
+        return IMAGES.BEAUTY;
+      }
+      if (details.ability === AbilityType.INTELLIGENCE) {
+        return IMAGES.INTELLIGENCE;
+      }
+      if (details.ability === AbilityType.SPEED) {
+        return IMAGES.SPEED;
+      }
+      if (details.ability === AbilityType.STRENGTH) {
+        return IMAGES.STRENGTH;
+      }
+    }
+
+    return undefined;
+  }, [details]);
 
   return (
     <Container>
-      <AbilityImg src={img} />
+      <AbilityImg src={abilityImage} />
       <Content>
         <FlexWrapper>
-          <Ability>{section?.ability}</Ability>
+          <Ability>{details && details.ability}</Ability>
           <p>확률: {pbt}</p>
         </FlexWrapper>
-        <Score scoreArr={section?.score || []} />
+        <Score scoreArr={details ? details.score : []} />
       </Content>
       <BaseButton value={'강화'} onClick={() => enchant(type)} width={50} height={32} />
     </Container>

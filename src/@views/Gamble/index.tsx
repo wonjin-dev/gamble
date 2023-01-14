@@ -3,13 +3,20 @@ import styled from '@emotion/styled';
 import GambleSection from '@views/Gamble/components/Section';
 import BaseButton from '@components/BaseButton';
 import {rem} from '@styles/theme';
+import useGamble, {AbilityType} from '@hooks/gamble/useGamble';
 
-const GambleScreen: FC = () => {
+interface Props {
+  abilities: AbilityType[];
+}
+
+const GambleScreen: FC<Props> = ({abilities}) => {
+  const gamble = useGamble(abilities);
+
   return (
     <Fragment>
-      <GambleSection type={'positive1'} />
-      <GambleSection type={'positive2'} />
-      <GambleSection type={'negative'} />
+      <GambleSection type={'positive1'} gamble={gamble} />
+      <GambleSection type={'positive2'} gamble={gamble} />
+      <GambleSection type={'negative'} gamble={gamble} />
       <ButtonsWrapper>
         <BaseButton
           value={'다시 뽑기'}
