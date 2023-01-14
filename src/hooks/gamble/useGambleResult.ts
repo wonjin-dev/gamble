@@ -99,9 +99,9 @@ const useGambleResult = () => {
   const postive2 = useRecoilValue(positive2Atom);
   const negative = useRecoilValue(negativeAtom);
   const negativeScore = getScore(negative.score);
+  const sortArr = [postive1, postive2].sort((a, b) => getScore(b.score) - getScore(a.score));
 
   const firstModifier = useMemo(() => {
-    const sortArr = [postive1, postive2].sort((a, b) => getScore(b.score) - getScore(a.score));
     const target = sortArr[0];
     const score = getScore(target.score);
 
@@ -113,10 +113,9 @@ const useGambleResult = () => {
         return template.main_negative;
       }
     }
-  }, [postive1, postive2]);
+  }, [sortArr]);
 
   const secondModifier = useMemo(() => {
-    const sortArr = [postive1, postive2].sort((a, b) => getScore(b.score) - getScore(a.score));
     const target = sortArr[1];
     const score = getScore(target.score);
     const template = getModifier(target.ability);
@@ -128,7 +127,7 @@ const useGambleResult = () => {
         return template.sub_negative;
       }
     }
-  }, [postive1, postive2]);
+  }, [sortArr]);
 
   const animal = useMemo(() => {
     if (negativeScore >= 5) {
