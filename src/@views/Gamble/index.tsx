@@ -18,12 +18,7 @@ const GambleScreen: FC<Props> = ({abilities}) => {
       <GambleSection type={'positive2'} gamble={gamble} />
       <GambleSection type={'negative'} gamble={gamble} />
       <ButtonsWrapper>
-        <BaseButton
-          value={'다시 뽑기'}
-          onClick={() => {
-            // TODO
-          }}
-        />
+        <BaseButton value={'다시 뽑기'} onClick={gamble.reset} />
         {/* TODO: 결과가 있을때만 버튼 노출 */}
         <BaseButton
           value={'결과 공유하기'}
