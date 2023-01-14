@@ -1,14 +1,11 @@
 import {atom} from 'recoil';
 import {ATOM_KEY} from '@constants/key';
-import {GambleType} from '@hooks/gamble/useEnchant';
+import {GambleType} from '@hooks/gamble/useGamble';
 
-const initData: GambleType = {
-  ability: undefined,
-  score: [],
-  isOver: false,
-};
-
-export const negativeAtom = atom({
+export const negativeAtom = atom<GambleType>({
   key: ATOM_KEY.NEAGTIVE,
-  default: initData,
+  default: {
+    ability: undefined,
+    score: [],
+  },
 });
