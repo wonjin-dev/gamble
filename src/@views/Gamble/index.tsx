@@ -4,6 +4,7 @@ import GambleSection from '@views/Gamble/components/Section';
 import BaseButton from '@components/BaseButton';
 import {rem} from '@styles/theme';
 import useGamble, {AbilityType} from '@hooks/gamble/useGamble';
+import Result from './components/Result';
 
 interface Props {
   abilities: AbilityType[];
@@ -17,6 +18,7 @@ const GambleScreen: FC<Props> = ({abilities}) => {
       <GambleSection type={'positive1'} gamble={gamble} />
       <GambleSection type={'positive2'} gamble={gamble} />
       <GambleSection type={'negative'} gamble={gamble} />
+      {/* <Result /> */}
       <ButtonsWrapper>
         <BaseButton value={'다시 뽑기'} onClick={gamble.reset} />
         {/* TODO: 결과가 있을때만 버튼 노출 */}
