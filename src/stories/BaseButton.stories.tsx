@@ -1,9 +1,18 @@
 import React from 'react';
 import {action} from '@storybook/addon-actions';
+import {ComponentMeta, ComponentStory} from '@storybook/react';
 import BaseButton from '@components/BaseButton';
 
-const Template = {title: '@common/BaseButton', component: BaseButton};
+export default {
+  title: '@common/BaseButton',
+  component: BaseButton,
+} as ComponentMeta<typeof BaseButton>;
 
-export const Default = () => <BaseButton value={'TEST'} onClick={action('버튼 클릭')} />;
+const Template: ComponentStory<typeof BaseButton> = (args) => <BaseButton {...args} />;
 
-export default Template;
+export const Default = Template.bind({});
+
+Default.args = {
+  value: 'TEST',
+  onClick: action('버튼 클릭'),
+};
