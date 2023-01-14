@@ -1,6 +1,6 @@
 import {useCallback} from 'react';
 import {useRecoilState} from 'recoil';
-import {probabilityAtom} from 'src/store/gamble/pbt';
+import {probabilityAtom} from '@store/gamble/pbt';
 
 const useProbability = () => {
   const [pbt, setPbt] = useRecoilState(probabilityAtom);

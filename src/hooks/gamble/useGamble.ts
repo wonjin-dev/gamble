@@ -1,17 +1,11 @@
-import {useMemo, useState} from 'react';
-import {randomNumberArrayGenerator} from '@utils/generators';
-import {IMAGES} from '@constants/image';
-
-export const enum ResultType {
-  TIGER,
-  SNAIL,
-  CHIMP,
-  GOLDFISH,
-  SLOTH,
-  CHEETAH,
-  PROBOSCIS_MONKEY,
-  WOLF,
-}
+import {useCallback, useMemo} from 'react';
+import {useRecoilState} from 'recoil';
+import {gamble} from '@utils/generators';
+import {positive1Atom} from '@store/gamble/positive1';
+import {positive2Atom} from '@store/gamble/positive2';
+import {negativeAtom} from '@store/gamble/negative';
+import useEffectOnce from '@hooks/useEffectOnce';
+import useProbability from './useProbability';
 
 export const enum AbilityType {
   STRENGTH = '근력',
@@ -20,72 +14,97 @@ export const enum AbilityType {
   BEAUTY = '아름다움',
 }
 
-const abilityList = [AbilityType.BEAUTY, AbilityType.INTELLIGENCE, AbilityType.SPEED, AbilityType.STRENGTH];
+export interface GambleSectionType {
+  positive1: GambleType;
+  positive2: GambleType;
+  negative: GambleType;
+}
 
-const useGamble = () => {
-  const abilityGen = randomNumberArrayGenerator(3, 4);
-  const initAbility = abilityGen.map((randomNumber) => abilityList[randomNumber]);
-  const [abilities] = useState<AbilityType[]>(initAbility);
+export type GambleSectionList = keyof GambleSectionType;
 
-  const abilityImage = useMemo(
-    () => (ability?: AbilityType) => {
-      if (ability === AbilityType.BEAUTY) {
-        return IMAGES.BEAUTY;
-      }
-      if (ability === AbilityType.INTELLIGENCE) {
-        return IMAGES.INTELLIGENCE;
-      }
-      if (ability === AbilityType.SPEED) {
-        return IMAGES.SPEED;
-      }
-      if (ability === AbilityType.STRENGTH) {
-        return IMAGES.STRENGTH;
-      }
-    },
-    []
-  );
+export interface GambleType {
+  ability: AbilityType | undefined;
+  score: boolean[];
+}
 
-  const useGetResult = (result: ResultType) => {
-    const resultImg = useMemo(() => {
-      switch (result) {
-        case ResultType.TIGER: {
-          return IMAGES.TIGER;
-        }
+export interface GambleProps {
+  enchant: (section: GambleSectionList) => void;
+  detail: (section: GambleSectionList) => GambleType | undefined;
+}
 
-        case ResultType.SNAIL: {
-          return IMAGES.SNAIL;
-        }
+const useGamble = (abilities: AbilityType[]): GambleProps => {
+  const {pbt, success, fail} = useProbability();
+  const [positive1, setPositive1] = useRecoilState(positive1Atom);
+  const [positive2, setPositive2] = useRecoilState(positive2Atom);
+  const [negative, setNeagtive] = useRecoilState(negativeAtom);
 
-        case ResultType.CHIMP: {
-          return IMAGES.CHIMP;
-        }
-
-        case ResultType.GOLDFISH: {
-          return IMAGES.GOLDFISH;
-        }
-
-        case ResultType.SLOTH: {
-          return IMAGES.SLOTH;
-        }
-
-        case ResultType.CHEETAH: {
-          return IMAGES.CHEETAH;
-        }
-
-        case ResultType.PROBOSCIS_MONKEY: {
-          return IMAGES.PROBOSCIS_MONKEY;
-        }
-
-        case ResultType.WOLF: {
-          return IMAGES.WOLF;
-        }
-      }
-    }, [result]);
-
-    return resultImg;
+  const init = () => {
+    setPositive1({...positive1, ability: abilities[0]});
+    setPositive2({...positive2, ability: abilities[1]});
+    setNeagtive({...negative, ability: abilities[2]});
   };
 
-  return {abilities, abilityImage, useGetResult};
+  useEffectOnce(init);
+
+  const detail = useMemo(
+    () => (section: GambleSectionList) => {
+      if (section === 'positive1') {
+        return positive1;
+      }
+      if (section === 'positive2') {
+        return positive2;
+      }
+      if (section === 'negative') {
+        return negative;
+      }
+    },
+    [negative, positive1, positive2]
+  );
+
+  const enchant = useCallback(
+    (section: GambleSectionList) => {
+      const res = gamble(pbt);
+
+      if (section === 'positive1') {
+        if (positive1.score.length < 10) {
+          if (res) {
+            setPositive1({...positive1, score: [...positive1.score, true]});
+            success();
+          } else {
+            setPositive1({...positive1, score: [...positive1.score, false]});
+            fail();
+          }
+        }
+      }
+
+      if (section === 'positive2') {
+        if (positive2.score.length < 10) {
+          if (res) {
+            setPositive2({...positive2, score: [...positive2.score, true]});
+            success();
+          } else {
+            setPositive2({...positive2, score: [...positive2.score, false]});
+            fail();
+          }
+        }
+      }
+
+      if (section === 'negative') {
+        if (negative.score.length < 10) {
+          if (res) {
+            setNeagtive({...negative, score: [...negative.score, true]});
+            success();
+          } else {
+            setNeagtive({...negative, score: [...negative.score, false]});
+            fail();
+          }
+        }
+      }
+    },
+    [fail, negative, pbt, positive1, positive2, setNeagtive, setPositive1, setPositive2, success]
+  );
+
+  return {detail, enchant};
 };
 
 export default useGamble;
