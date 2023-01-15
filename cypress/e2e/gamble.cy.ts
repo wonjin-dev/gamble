@@ -5,9 +5,11 @@ const completeGamble = (gambleClick: () => void) => {
 };
 
 describe('gamble', () => {
-  it('다시 뽑기', () => {
+  beforeEach(() => {
     cy.visit('http://localhost:3000');
+  });
 
+  it('다시 뽑기', () => {
     completeGamble(() => cy.contains('강화').click());
     cy.wait(600);
 
@@ -15,8 +17,6 @@ describe('gamble', () => {
   });
 
   it('결과 확인하기', () => {
-    cy.visit('http://localhost:3000');
-
     completeGamble(() => cy.get(':nth-child(1) > .css-1i0retr').click());
 
     completeGamble(() => cy.get(':nth-child(2) > .css-1i0retr').click());
