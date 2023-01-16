@@ -26,8 +26,8 @@ export const gamble = (probability: number): boolean => {
   return randomNumberArr.includes(target);
 };
 
-export const abilityList = [AbilityType.BEAUTY, AbilityType.INTELLIGENCE, AbilityType.SPEED, AbilityType.STRENGTH];
 export const abilitiesGenerator = () => {
+  const abilityList = [AbilityType.BEAUTY, AbilityType.INTELLIGENCE, AbilityType.SPEED, AbilityType.STRENGTH];
   const abilityGen = randomNumberArrayGenerator(3, 4);
   const abilities = abilityGen.map((randomNumber) => abilityList[randomNumber]);
 

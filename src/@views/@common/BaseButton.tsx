@@ -16,11 +16,11 @@ interface BaseButtonProps extends HTMLProps<HTMLButtonElement> {
 const BaseButton: FC<BaseButtonProps> = ({
   value,
   className,
+  width,
+  height,
   textColor = COLORS.BLACK,
   bgColor = COLORS.WHITE,
   borderColor = COLORS.GREY,
-  width = 80,
-  height = 30,
   onClick,
 }) => {
   return (
@@ -43,15 +43,15 @@ const StyledButton = styled.button<{
   textColor: string;
   bgColor: string;
   borderColor: string;
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }>`
-  color: ${(props) => props.textColor};
-  background-color: ${(props) => props.bgColor};
-  width: ${(props) => rem(props.width)};
-  height: ${(props) => rem(props.height)};
+  color: ${({textColor}) => textColor};
+  background-color: ${({bgColor}) => bgColor};
+  width: ${({width}) => (width ? rem(width) : '100%')};
+  height: ${({height}) => (height ? rem(height) : '100%')};
   padding: ${rem(6)};
-  border: ${(props) => `${rem(1)} solid ${props.borderColor}`};
+  border: ${({borderColor}) => `${rem(1)} solid ${borderColor}`};
   border-radius: ${rem(8)};
   cursor: pointer;
 `;

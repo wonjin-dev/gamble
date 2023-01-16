@@ -18,13 +18,6 @@ const GambleScreen: FC<Props> = ({abilities}) => {
 
       <ButtonsWrapper>
         <BaseButton value={'다시 뽑기'} onClick={gamble.reset} />
-        <BaseButton
-          value={'결과 공유하기'}
-          bgColor={'orange'}
-          onClick={() => {
-            // TODO
-          }}
-        />
       </ButtonsWrapper>
     </Fragment>
   );
@@ -33,9 +26,5 @@ const GambleScreen: FC<Props> = ({abilities}) => {
 export default GambleScreen;
 
 const ButtonsWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: ${rem(12)};
   padding: ${rem(16)};
 `;
