@@ -17,7 +17,9 @@ const useProbability = () => {
     }
   }, [pbt, setPbt]);
 
-  return {pbt, success, fail};
+  const reset = () => setPbt(75);
+
+  return {pbt, success, fail, reset};
 };
 
 export default useProbability;

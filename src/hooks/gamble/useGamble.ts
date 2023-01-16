@@ -35,7 +35,7 @@ export interface GambleProps {
 }
 
 const useGamble = (abilities: AbilityType[]): GambleProps => {
-  const {pbt, success, fail} = useProbability();
+  const {pbt, success, fail, reset: pbtReset} = useProbability();
   const [positive1, setPositive1] = useRecoilState(positive1Atom);
   const [positive2, setPositive2] = useRecoilState(positive2Atom);
   const [negative, setNeagtive] = useRecoilState(negativeAtom);
@@ -113,9 +113,11 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
 
   const reset = () => {
     const newAbilities = abilitiesGenerator();
+
     setPositive1({ability: newAbilities[0], score: []});
     setPositive2({ability: newAbilities[1], score: []});
     setNeagtive({ability: newAbilities[2], score: []});
+    pbtReset();
   };
 
   return {detail, enchant, reset, isOver};
