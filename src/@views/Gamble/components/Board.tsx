@@ -1,4 +1,4 @@
-import {FC, Fragment} from 'react';
+import {FC} from 'react';
 import styled from '@emotion/styled';
 import {GambleProps} from '@hooks/gamble/useGamble';
 import {rem} from '@styles/theme';
