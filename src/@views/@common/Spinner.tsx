@@ -3,10 +3,12 @@ import styled from '@emotion/styled';
 import {IMAGES} from '@constants/image';
 import {spin} from '@styles/keyframe';
 import useEffectOnce from '@hooks/useEffectOnce';
+import {rem} from '@styles/theme';
 
 interface SpinnerProps {
   timer?: boolean;
   conditionFlag?: boolean;
+  size?: number;
 }
 
 /**
@@ -20,12 +22,16 @@ interface SpinnerProps {
  * ! timer와 conditionFlag는 동시에 사용할 수 없음
  */
 
-const Spinner: FC<SpinnerProps> = ({timer = false, conditionFlag}) => {
+const Spinner: FC<SpinnerProps> = ({timer = false, conditionFlag = false, size}) => {
   const [flag, setFlag] = useState<boolean>(timer);
 
   useEffect(() => {
     if (timer && conditionFlag) {
       throw new Error('timer와 conditionFlag는 동시에 사용할 수 없습니다');
+    }
+
+    if (!timer && !conditionFlag) {
+      throw new Error('timer와 conditionFlag 둘 중 하나는 반드시 포함되어야 합니다');
     }
 
     if (!timer && conditionFlag) {
@@ -45,7 +51,7 @@ const Spinner: FC<SpinnerProps> = ({timer = false, conditionFlag}) => {
 
   if (flag) {
     return (
-      <Container>
+      <Container size={size}>
         <SpinnerImg src={IMAGES.SPINNER} />
       </Container>
     );
@@ -56,15 +62,18 @@ const Spinner: FC<SpinnerProps> = ({timer = false, conditionFlag}) => {
 
 export default Spinner;
 
-const Container = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
+const Container = styled.div<{size?: number}>`
+  width: ${({size}) => (size ? rem(size) : '100%')};
+  height: ${({size}) => (size ? rem(size) : '100%')};
+  background-color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
 `;
 
 const SpinnerImg = styled.img`
   position: absolute;
+  top: 50%;
   left: 50%;
-  bottom: 40%;
   animation: ${spin} 2s linear infinite;
 `;

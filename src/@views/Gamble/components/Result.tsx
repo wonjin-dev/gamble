@@ -22,8 +22,7 @@ const Result: FC = () => {
 export default Result;
 
 const ResultImage = styled.img`
-  width: ${rem(375)};
-  max-width: 390px;
+  width: 100%;
   height: 390px;
 `;
 
