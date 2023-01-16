@@ -20,15 +20,15 @@ export default Score;
 
 const Container = styled.div`
   display: flex;
-  width: 100%;
+  width: ${rem(156)};
   height: ${rem(22)};
   align-items: center;
   gap: ${rem(4)};
 `;
 
 const GambleResult = styled.div<{success: boolean}>`
-  width: ${rem(16)};
-  height: ${rem(16)};
+  width: ${rem(12)};
+  height: ${rem(12)};
   border-radius: 50%;
   background-color: ${({success}) => (success ? `${COLORS.GAMBLE_SUCCESS}` : `${COLORS.GAMBLE_FAIL}`)};
 `;

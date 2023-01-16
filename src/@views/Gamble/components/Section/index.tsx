@@ -36,13 +36,24 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
     return undefined;
   }, [details]);
 
+  const probability = useMemo(() => {
+    if (type === 'positive1') {
+      return `성공 확률: ${pbt}`;
+    }
+    if (type === 'negative') {
+      return `실패 확률: ${pbt}`;
+    }
+  }, [pbt, type]);
+
   return (
     <Container>
-      <AbilityImg src={abilityImage} />
+      <AbilityImageWarpper>
+        <AbilityImg src={abilityImage} />
+      </AbilityImageWarpper>
       <Content>
         <FlexWrapper>
           <Ability>{details && details.ability}</Ability>
-          <p>확률: {pbt}</p>
+          {probability}
         </FlexWrapper>
         <Score scoreArr={details ? details.score : []} />
       </Content>
@@ -55,7 +66,9 @@ const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 ${rem(4)};
+  padding: ${rem(4)};
+  outline: ${rem(1)} solid black;
+  border-radius: ${rem(6)};
 `;
 
 const Content = styled.div`
@@ -63,12 +76,18 @@ const Content = styled.div`
   padding: 0 ${rem(8)};
 `;
 
+const AbilityImageWarpper = styled.picture`
+  border-radius: 50%;
+`;
+
 const AbilityImg = styled.img`
   width: ${rem(32)};
   height: ${rem(32)};
+  padding: ${rem(4)};
+  object-fit: contain;
 `;
 
-const Ability = styled.div`
+const Ability = styled.p`
   font-size: ${rem(10)};
 `;
 

@@ -8,8 +8,10 @@ const Result: FC = () => {
 
   return (
     <Fragment>
-      <h1>{result.textResult}</h1>
-
+      <Title>
+        <p className="intro">당신은 전생에 ...</p>
+        <p className="result">{result.textResult}</p>
+      </Title>
       <picture>
         <ResultImage src={result.img} alt={'결과 이미지'} />
       </picture>
@@ -23,4 +25,17 @@ const ResultImage = styled.img`
   width: ${rem(375)};
   max-width: 390px;
   height: 390px;
+`;
+
+const Title = styled.h1`
+  padding: ${rem(8)};
+
+  .intro {
+    font-weight: 400;
+    font-size: ${rem(14)};
+  }
+
+  .result {
+    text-align: center;
+  }
 `;

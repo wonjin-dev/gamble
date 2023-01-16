@@ -1,5 +1,7 @@
-import {FC, Fragment} from 'react';
+import {FC} from 'react';
+import styled from '@emotion/styled';
 import {GambleProps} from '@hooks/gamble/useGamble';
+import {rem} from '@styles/theme';
 import Result from './Result';
 import GambleSection from './Section';
 
@@ -14,12 +16,19 @@ const GambleBoard: FC<Props> = ({isOver, gamble}) => {
   }
 
   return (
-    <Fragment>
+    <Container>
       <GambleSection type={'positive1'} gamble={gamble} />
       <GambleSection type={'positive2'} gamble={gamble} />
       <GambleSection type={'negative'} gamble={gamble} />
-    </Fragment>
+    </Container>
   );
 };
 
 export default GambleBoard;
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: ${rem(12)};
+  padding: ${rem(8)};
+`;

@@ -104,8 +104,8 @@ const useGambleResult = () => {
   const firstModifier = useMemo(() => {
     const target = sortArr[0];
     const score = getScore(target.score);
-
     const template = getModifier(target.ability);
+
     if (template) {
       if (score > 5) {
         return template.main_positive;
