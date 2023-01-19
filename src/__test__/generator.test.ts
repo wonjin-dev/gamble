@@ -1,5 +1,5 @@
 import {AbilityType} from '@hooks/gamble/useGamble';
-import {abilitiesGenerator, gamble, randomNumberArrayGenerator, randomNumberGenerator} from '../utils/generators';
+import {abilitiesGenerator, gamble, randomNumberArrayGenerator, randomNumberGenerator} from '@utils/generators';
 
 describe('[유틸] randomNumberGenerator', () => {
   it('0보다 크고, 특정 숫자 이하의 정수 값을 리턴', () => {
@@ -121,3 +121,11 @@ describe('[유틸] gamble', () => {
     expect(randomAbilities).toStrictEqual(overlapChecker);
   });
 });
+
+describe('[유틸] abilitiesGenerator', () => {
+  it('길이 3개를 가진 배열을 리턴', () => {
+    const ability = abilitiesGenerator();
+
+    expect(ability.length).toBe(3);
+  })
+})
