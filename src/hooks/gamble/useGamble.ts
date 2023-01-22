@@ -74,25 +74,25 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
       const target = detail(section);
 
       const attempt = (result: boolean) => {
-        if (target && target.score.length < 10) {
-          if (target === positive1) {
-            return setPositive1({...target, score: [...target.score, result]});
-          }
-          if (target === positive2) {
-            return setPositive2({...target, score: [...target.score, result]});
-          }
-          if (target === negative) {
-            return setNegative({...target, score: [...target.score, result]});
-          }
+        if (target === positive1) {
+          return setPositive1({...target, score: [...target.score, result]});
+        }
+        if (target === positive2) {
+          return setPositive2({...target, score: [...target.score, result]});
+        }
+        if (target === negative) {
+          return setNegative({...target, score: [...target.score, result]});
         }
       };
 
-      if (res) {
-        attempt(true);
-        success();
-      } else {
-        attempt(false);
-        fail();
+      if (target && target.score.length < 10) {
+        if (res) {
+          attempt(true);
+          success();
+        } else {
+          attempt(false);
+          fail();
+        }
       }
     },
     [detail, fail, negative, pbt, positive1, positive2, setNegative, setPositive1, setPositive2, success]
