@@ -4,6 +4,8 @@ import {positive1Atom} from '@store/gamble/positive1';
 import {positive2Atom} from '@store/gamble/positive2';
 import {negativeAtom} from '@store/gamble/negative';
 import {IMAGES} from '@constants/image';
+import {SOUNDS} from '@constants/sound';
+import useSound from '@hooks/useSound';
 import {AbilityType} from './useGamble';
 
 export const enum ResultType {
@@ -137,9 +139,24 @@ const useGambleResult = () => {
     }
   }, [negative.ability, negativeScore]);
 
+  const resultType = useMemo(() => {
+    return negativeScore < 5;
+  }, [negativeScore]);
+
+  const positiveResultSound = useSound(SOUNDS.GAMBLE_RESULT_POSITIVE);
+  const negativeResultSound = useSound(SOUNDS.GAMBLE_RESULT_NEGATIVE);
+
+  const resultSound = useMemo(() => {
+    if (resultType) {
+      return positiveResultSound;
+    } else {
+      return negativeResultSound;
+    }
+  }, [negativeResultSound, positiveResultSound, resultType]);
+
   const textResult = `${firstModifier} ${secondModifier} ${animal?.name}`;
 
-  return {textResult, img: animal?.img};
+  return {resultType, resultSound, textResult, img: animal?.img};
 };
 
 export default useGambleResult;

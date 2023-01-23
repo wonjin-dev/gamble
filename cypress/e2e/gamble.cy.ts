@@ -22,6 +22,8 @@ describe('gamble', () => {
     completeGamble(() => cy.get(':nth-child(2) > .css-1i0retr').click());
 
     completeGamble(() => cy.get(':nth-child(3) > .css-1i0retr').click());
+
+    cy.wait(2000);
   });
 });
 
