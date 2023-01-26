@@ -16,6 +16,6 @@
         "pathGroupsExcludedImportTypes": ["react"]
       }
     ],
-    "no-unused-vars": "warn"
+    "no-unused-vars": "off"
   }
 }
