@@ -8,155 +8,129 @@ import {SOUNDS} from '@constants/sound';
 import useSound from '@hooks/useSound';
 import {AbilityType} from './useGamble';
 
-export const enum ResultType {
-  TIGER,
-  SNAIL,
-  CHIMP,
-  GOLDFISH,
-  SLOTH,
-  CHEETAH,
-  PROBOSCIS_MONKEY,
-  WOLF,
-}
+type GambleResultType = 'POSITIVE' | 'NEGATIVE';
 
-const getScore = (arr: boolean[]) => arr.filter((arrBoolean) => arrBoolean === true).length;
+const getGambleScore = (arr: boolean[]) => arr.filter((arrBoolean) => arrBoolean).length;
 
-const getPositiveAnimalResult = (positiveAbility?: AbilityType) => {
-  if (positiveAbility === AbilityType.BEAUTY) {
-    return {
-      name: '늑대',
-      img: IMAGES.WOLF,
-    };
-  }
-
-  if (positiveAbility === AbilityType.INTELLIGENCE) {
-    return {
-      name: '침팬지',
-      img: IMAGES.CHIMP,
-    };
-  }
-
-  if (positiveAbility === AbilityType.SPEED) {
-    return {
-      name: '치타',
-      img: IMAGES.CHEETAH,
-    };
-  }
-
-  if (positiveAbility === AbilityType.STRENGTH) {
-    return {
-      name: '호랑이',
-      img: IMAGES.TIGER,
-    };
-  }
-};
-
-const getNegativeAnimalResult = (negativeAbility?: AbilityType) => {
-  if (negativeAbility === AbilityType.BEAUTY) {
-    return {
-      name: '코주부 원숭이',
-      img: IMAGES.PROBOSCIS_MONKEY,
-    };
-  }
-
-  if (negativeAbility === AbilityType.INTELLIGENCE) {
-    return {
-      name: '금붕어',
-      img: IMAGES.GOLDFISH,
-    };
-  }
-
-  if (negativeAbility === AbilityType.SPEED) {
-    return {
-      name: '나무늘보',
-      img: IMAGES.SLOTH,
-    };
-  }
-
-  if (negativeAbility === AbilityType.STRENGTH) {
-    return {
-      name: '달팽이',
-      img: IMAGES.SNAIL,
-    };
-  }
-};
-
-const getModifier = (ability?: AbilityType) => {
+const getGambleResult = (ability: AbilityType | undefined, type: GambleResultType) => {
   if (ability === AbilityType.BEAUTY) {
-    return {main_positive: '멋있고', sub_positive: '멋있는', main_negative: '못생기고', sub_negative: '못생긴'};
+    if (type === 'POSITIVE') {
+      return {
+        mainModifier: '멋있고',
+        subModifier: '멋있는',
+        animal: '늑대',
+        img: IMAGES.WOLF,
+      };
+    } else {
+      return {
+        mainModifier: '못생기고',
+        subModifier: '못생긴',
+        animal: '코주부원숭이',
+        img: IMAGES.PROBOSCIS_MONKEY,
+      };
+    }
   }
+
   if (ability === AbilityType.INTELLIGENCE) {
-    return {main_positive: '똑똑하고', sub_positive: '똑똑한', main_negative: '멍청하고', sub_negative: '멍청한'};
+    if (type === 'POSITIVE') {
+      return {
+        mainModifier: '똑똑하고',
+        subModifier: '똑똑한',
+        animal: '침팬지',
+        img: IMAGES.CHIMP,
+      };
+    } else {
+      return {
+        mainModifier: '멍청하고',
+        subModifier: '멍청한',
+        animal: '금붕어',
+        img: IMAGES.GOLDFISH,
+      };
+    }
   }
+
   if (ability === AbilityType.SPEED) {
-    return {main_positive: '날쌔고', sub_positive: '날쌘', main_negative: '느리고', sub_negative: '느린'};
+    if (type === 'POSITIVE') {
+      return {
+        mainModifier: '민첩하고',
+        subModifier: '민첩한',
+        animal: '치타',
+        img: IMAGES.CHEETAH,
+      };
+    } else {
+      return {
+        mainModifier: '게으르고',
+        subModifier: '게으른',
+        animal: '나무늘보',
+        img: IMAGES.SLOTH,
+      };
+    }
   }
+
   if (ability === AbilityType.STRENGTH) {
-    return {main_positive: '강하고', sub_positive: '강한', main_negative: '약하고', sub_negative: '약한'};
+    if (type === 'POSITIVE') {
+      return {
+        mainModifier: '힘세고',
+        subModifier: '힘 쎈',
+        animal: '호랑이',
+        img: IMAGES.TIGER,
+      };
+    } else {
+      return {
+        mainModifier: '나약하고',
+        subModifier: '나약한',
+        animal: '달팽이',
+        img: IMAGES.SNAIL,
+      };
+    }
   }
 };
 
 const useGambleResult = () => {
-  const postive1 = useRecoilValue(positive1Atom);
-  const postive2 = useRecoilValue(positive2Atom);
+  const positive1 = useRecoilValue(positive1Atom);
+  const positive2 = useRecoilValue(positive2Atom);
   const negative = useRecoilValue(negativeAtom);
-  const negativeScore = getScore(negative.score);
-  const sortArr = [postive1, postive2].sort((a, b) => getScore(b.score) - getScore(a.score));
+
+  const negativeSection = useMemo(() => getGambleScore(negative.score) >= 5, [negative.score]);
+  const negativeSectionResultType: GambleResultType = negativeSection ? 'NEGATIVE' : 'POSITIVE';
+  const sortArr =
+    positive1 && positive2 && [positive1, positive2].sort((a, b) => getGambleScore(b.score) - getGambleScore(a.score));
 
   const firstModifier = useMemo(() => {
     const target = sortArr[0];
-    const score = getScore(target.score);
-    const template = getModifier(target.ability);
+    const resultType: GambleResultType = getGambleScore(target.score) > 5 ? 'POSITIVE' : 'NEGATIVE';
+    const result = getGambleResult(target.ability, resultType);
 
-    if (template) {
-      if (score > 5) {
-        return template.main_positive;
-      } else {
-        return template.main_negative;
-      }
-    }
+    return result?.mainModifier;
   }, [sortArr]);
 
   const secondModifier = useMemo(() => {
     const target = sortArr[1];
-    const score = getScore(target.score);
-    const template = getModifier(target.ability);
+    const resultType: GambleResultType = getGambleScore(target.score) > 5 ? 'POSITIVE' : 'NEGATIVE';
+    const result = getGambleResult(target.ability, resultType);
 
-    if (template) {
-      if (score > 5) {
-        return template.sub_positive;
-      } else {
-        return template.sub_negative;
-      }
-    }
+    return result?.subModifier;
   }, [sortArr]);
 
   const animal = useMemo(() => {
-    if (negativeScore >= 5) {
-      return getNegativeAnimalResult(negative.ability);
-    } else {
-      return getPositiveAnimalResult(negative.ability);
-    }
-  }, [negative.ability, negativeScore]);
+    const result = getGambleResult(negative.ability, negativeSectionResultType);
 
-  const resultType = useMemo(() => {
-    return negativeScore < 5;
-  }, [negativeScore]);
+    return result?.animal;
+  }, [negative.ability, negativeSectionResultType]);
+
+  const textResult = `${firstModifier} ${secondModifier} ${animal}`;
 
   const positiveResultSound = useSound(SOUNDS.GAMBLE_RESULT_POSITIVE);
   const negativeResultSound = useSound(SOUNDS.GAMBLE_RESULT_NEGATIVE);
-
   const resultSound = useMemo(() => {
-    if (resultType) {
+    if (!negativeSection) {
       return positiveResultSound;
     } else {
       return negativeResultSound;
     }
-  }, [negativeResultSound, positiveResultSound, resultType]);
+  }, [negativeResultSound, negativeSection, positiveResultSound]);
 
-  const textResult = `${firstModifier} ${secondModifier} ${animal?.name}`;
-
-  return {resultType, resultSound, textResult, img: animal?.img};
+  return {resultSound, textResult, img: getGambleResult(negative.ability, negativeSectionResultType)};
 };
 
 export default useGambleResult;
