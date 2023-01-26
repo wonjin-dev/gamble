@@ -16,15 +16,15 @@ const GambleScreen: FC<Props> = ({abilities}) => {
     <Fragment>
       <GambleBoard isOver={gamble.isOver} gamble={gamble} />
 
-      <ButtonsWrapper>
+      <Bottom>
         <BaseButton value={'다시 뽑기'} onClick={gamble.reset} />
-      </ButtonsWrapper>
+      </Bottom>
     </Fragment>
   );
 };
 
 export default GambleScreen;
 
-const ButtonsWrapper = styled.div`
+const Bottom = styled.div`
   padding: ${rem(16)};
 `;

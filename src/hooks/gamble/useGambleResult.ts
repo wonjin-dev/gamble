@@ -104,8 +104,8 @@ const useGambleResult = () => {
   const positive2 = useRecoilValue(positive2Atom);
   const negative = useRecoilValue(negativeAtom);
 
-  const negativeSection: boolean = useMemo(() => getGambleScore(negative.score) >= 5, [negative.score]);
-  const negativeSectionResultType: GambleResultType = negativeSection ? 'NEGATIVE' : 'POSITIVE';
+  const isNegativeResult: boolean = useMemo(() => getGambleScore(negative.score) >= 5, [negative.score]);
+  const negativeSectionResultType: GambleResultType = isNegativeResult ? 'NEGATIVE' : 'POSITIVE';
 
   const sortedGamlbeArray: GambleType[] = [positive1, positive2].sort(
     (a, b) => getGambleScore(b.score) - getGambleScore(a.score)
@@ -138,13 +138,14 @@ const useGambleResult = () => {
 
   const positiveResultSound = useSound(SOUNDS.GAMBLE_RESULT_POSITIVE);
   const negativeResultSound = useSound(SOUNDS.GAMBLE_RESULT_NEGATIVE);
+
   const resultSound = useMemo(() => {
-    if (!negativeSection) {
-      return positiveResultSound;
-    } else {
+    if (isNegativeResult) {
       return negativeResultSound;
+    } else {
+      return positiveResultSound;
     }
-  }, [negativeResultSound, negativeSection, positiveResultSound]);
+  }, [negativeResultSound, isNegativeResult, positiveResultSound]);
 
   return {resultSound, textResult, img: getGambleResult(negative.ability, negativeSectionResultType)};
 };
