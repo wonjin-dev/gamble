@@ -2,7 +2,6 @@ import styled from '@emotion/styled';
 import {FC, useMemo} from 'react';
 import BaseButton from '@components/BaseButton';
 import {rem} from '@styles/theme';
-import useProbability from '@hooks/gamble/useProbability';
 import {AbilityType, GambleProps, GambleSectionList} from '@hooks/gamble/useGamble';
 import {IMAGES} from '@constants/image';
 import Score from './Score';
@@ -13,8 +12,7 @@ interface Props {
 }
 
 const GambleSection: FC<Props> = ({type, gamble}) => {
-  const {pbt} = useProbability();
-  const {detail, enchant} = gamble;
+  const {pbt, detail, enchant} = gamble;
   const details = useMemo(() => detail(type), [detail, type]);
 
   const abilityImage = useMemo(() => {

@@ -147,7 +147,7 @@ const useGambleResult = () => {
     }
   }, [negativeResultSound, isNegativeResult, positiveResultSound]);
 
-  return {resultSound, textResult, img: getGambleResult(negative.ability, negativeSectionResultType)};
+  return {resultSound, textResult, img: getGambleResult(negative.ability, negativeSectionResultType).img};
 };
 
 export default useGambleResult;

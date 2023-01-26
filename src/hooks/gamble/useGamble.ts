@@ -5,7 +5,9 @@ import {positive1Atom} from '@store/gamble/positive1';
 import {positive2Atom} from '@store/gamble/positive2';
 import {negativeAtom} from '@store/gamble/negative';
 import useEffectOnce from '@hooks/useEffectOnce';
-import useProbability from './useProbability';
+import {probabilityAtom} from '@store/gamble/pbt';
+import useSound from '@hooks/useSound';
+import {SOUNDS} from '@constants/sound';
 
 export const enum AbilityType {
   STRENGTH = '근력',
@@ -28,18 +30,20 @@ export interface GambleType {
 }
 
 export interface GambleProps {
-  enchant: (section: GambleSectionList) => void;
-  detail: (section: GambleSectionList) => GambleType | undefined;
-  reset: () => void;
+  pbt: number;
   isOver: boolean;
+  detail: (section: GambleSectionList) => GambleType | undefined;
+  enchant: (section: GambleSectionList) => void;
+  reset: () => void;
 }
 
 const useGamble = (abilities: AbilityType[]): GambleProps => {
-  const {pbt, success, fail, reset: pbtReset} = useProbability();
+  const [pbt, setPbt] = useRecoilState(probabilityAtom);
   const [positive1, setPositive1] = useRecoilState(positive1Atom);
   const [positive2, setPositive2] = useRecoilState(positive2Atom);
   const [negative, setNegative] = useRecoilState(negativeAtom);
-
+  const {play: successSound} = useSound(SOUNDS.SUCCESS);
+  const {play: failSound} = useSound(SOUNDS.FAIL);
   const isOver = useMemo(
     () => positive1.score.length === 10 && positive2.score.length === 10 && negative.score.length === 10,
     [negative.score.length, positive1.score.length, positive2.score.length]
@@ -85,17 +89,43 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
         }
       };
 
+      const success = () => {
+        if (pbt > 25) {
+          setPbt((prev) => prev - 10);
+          attempt(true);
+          successSound();
+        }
+      };
+
+      const fail = () => {
+        if (pbt < 75) {
+          setPbt((prev) => prev + 10);
+          attempt(false);
+          failSound();
+        }
+      };
+
       if (target && target.score.length < 10) {
         if (res) {
-          attempt(true);
           success();
         } else {
-          attempt(false);
           fail();
         }
       }
     },
-    [detail, fail, negative, pbt, positive1, positive2, setNegative, setPositive1, setPositive2, success]
+    [
+      pbt,
+      detail,
+      positive1,
+      positive2,
+      negative,
+      setPositive1,
+      setPositive2,
+      setNegative,
+      setPbt,
+      successSound,
+      failSound,
+    ]
   );
 
   const reset = () => {
@@ -104,10 +134,10 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
     setPositive1({ability: newAbilities[0], score: []});
     setPositive2({ability: newAbilities[1], score: []});
     setNegative({ability: newAbilities[2], score: []});
-    pbtReset();
+    setPbt(75);
   };
 
-  return {detail, enchant, reset, isOver};
+  return {pbt, detail, enchant, reset, isOver};
 };
 
 export default useGamble;
