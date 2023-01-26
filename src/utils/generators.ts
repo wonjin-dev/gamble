@@ -20,7 +20,6 @@ export const randomNumberArrayGenerator = (length: number, randomNumberRange: nu
 
 export const gamble = (probability: number): boolean => {
   const target = randomNumberGenerator(100);
-
   const randomNumberArr = randomNumberArrayGenerator(probability, 100);
 
   return randomNumberArr.includes(target);
