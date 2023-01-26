@@ -6,13 +6,19 @@ import {negativeAtom} from '@store/gamble/negative';
 import {IMAGES} from '@constants/image';
 import {SOUNDS} from '@constants/sound';
 import useSound from '@hooks/useSound';
-import {AbilityType} from './useGamble';
+import {AbilityType, GambleType} from './useGamble';
 
 type GambleResultType = 'POSITIVE' | 'NEGATIVE';
+interface GambleResult {
+  mainModifier: string;
+  subModifier: string;
+  animal: string;
+  img: string;
+}
 
-const getGambleScore = (arr: boolean[]) => arr.filter((arrBoolean) => arrBoolean).length;
+const getGambleScore = (arr: boolean[]): number => arr.filter((arrBoolean) => arrBoolean).length;
 
-const getGambleResult = (ability: AbilityType | undefined, type: GambleResultType) => {
+const getGambleResult = (ability: AbilityType | undefined, type: GambleResultType): GambleResult => {
   if (ability === AbilityType.BEAUTY) {
     if (type === 'POSITIVE') {
       return {
@@ -84,6 +90,13 @@ const getGambleResult = (ability: AbilityType | undefined, type: GambleResultTyp
       };
     }
   }
+
+  return {
+    mainModifier: '',
+    subModifier: '',
+    animal: '',
+    img: '',
+  };
 };
 
 const useGambleResult = () => {
@@ -91,31 +104,34 @@ const useGambleResult = () => {
   const positive2 = useRecoilValue(positive2Atom);
   const negative = useRecoilValue(negativeAtom);
 
-  const negativeSection = useMemo(() => getGambleScore(negative.score) >= 5, [negative.score]);
+  const negativeSection: boolean = useMemo(() => getGambleScore(negative.score) >= 5, [negative.score]);
   const negativeSectionResultType: GambleResultType = negativeSection ? 'NEGATIVE' : 'POSITIVE';
-  const sortArr =
-    positive1 && positive2 && [positive1, positive2].sort((a, b) => getGambleScore(b.score) - getGambleScore(a.score));
+
+  const sortedGamlbeArray: GambleType[] = [positive1, positive2].sort(
+    (a, b) => getGambleScore(b.score) - getGambleScore(a.score)
+  );
+  const [firstAbility, secondAbility] = sortedGamlbeArray;
 
   const firstModifier = useMemo(() => {
-    const target = sortArr[0];
+    const target = firstAbility;
     const resultType: GambleResultType = getGambleScore(target.score) > 5 ? 'POSITIVE' : 'NEGATIVE';
     const result = getGambleResult(target.ability, resultType);
 
-    return result?.mainModifier;
-  }, [sortArr]);
+    return result.mainModifier;
+  }, [firstAbility]);
 
   const secondModifier = useMemo(() => {
-    const target = sortArr[1];
+    const target = secondAbility;
     const resultType: GambleResultType = getGambleScore(target.score) > 5 ? 'POSITIVE' : 'NEGATIVE';
     const result = getGambleResult(target.ability, resultType);
 
-    return result?.subModifier;
-  }, [sortArr]);
+    return result.subModifier;
+  }, [secondAbility]);
 
   const animal = useMemo(() => {
     const result = getGambleResult(negative.ability, negativeSectionResultType);
 
-    return result?.animal;
+    return result.animal;
   }, [negative.ability, negativeSectionResultType]);
 
   const textResult = `${firstModifier} ${secondModifier} ${animal}`;
