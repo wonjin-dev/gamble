@@ -30,5 +30,5 @@ const GambleResult = styled.div<{success: boolean}>`
   width: ${rem(12)};
   height: ${rem(12)};
   border-radius: 50%;
-  background-color: ${({success}) => (success ? `${COLORS.GAMBLE_SUCCESS}` : `${COLORS.GAMBLE_FAIL}`)};
+  background-color: ${({success}) => (success ? `${COLORS.AQUA}` : `${COLORS.BROWN_RED}`)};
 `;

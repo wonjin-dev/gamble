@@ -1,7 +1,7 @@
 import {FC, useCallback} from 'react';
 import styled from '@emotion/styled';
 import BaseButton from '@components/BaseButton';
-import {rem} from '@styles/theme';
+import {COLORS, rem} from '@styles/theme';
 import useGamble, {AbilityType} from '@hooks/gamble/useGamble';
 import {useModal} from '@hooks/useModal';
 import ConfirmModal from '@views/@common/Modals/ConfirmModal';
@@ -54,7 +54,8 @@ export default GambleScreen;
 const Container = styled.div`
   max-width: ${rem(400)};
   margin: 0 auto;
-  height: 100%;
+  height: 100vh;
+  background-color: ${COLORS.WHITE};
 `;
 
 const ButtonsWrapper = styled.div`

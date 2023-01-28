@@ -65,8 +65,7 @@ const Container = styled.div<{isNegativeSection: boolean}>`
   justify-content: space-between;
   align-items: center;
   padding: ${rem(4)};
-  outline: ${(props) =>
-    props.isNegativeSection ? `${rem(1)} solid ${COLORS.NEGATIVE_SECTION}` : `${rem(1)} solid black`};
+  outline: ${(props) => (props.isNegativeSection ? `${rem(1)} solid ${COLORS.RED}` : `${rem(1)} solid black`)};
   border-radius: ${rem(6)};
   margin-top: ${(props) => props.isNegativeSection && rem(20)};
 `;

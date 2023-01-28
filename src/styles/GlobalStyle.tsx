@@ -6,10 +6,10 @@ const globalStyleSheet = (): SerializedStyles => css`
   body {
     padding: 0;
     margin: 0;
+    background-color: ${COLORS.DARK_GREY};
   }
 
   body {
-    background-color: ${COLORS.WHITE};
     font-size: ${BASE_FONT_SIZE}px;
   }
 
