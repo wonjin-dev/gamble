@@ -71,6 +71,7 @@ const Container = styled.div<{width?: number; height?: number; style?: CSSProper
   border-radius: ${rem(8)};
   width: 40%;
   height: 24%;
+  padding-bottom: ${rem(30)};
 `;
 
 const Bottom = styled.div`
@@ -80,4 +81,5 @@ const Bottom = styled.div`
   position: fixed;
   padding: ${rem(12)};
   bottom: 0;
+  height: ${rem(30)};
 `;
