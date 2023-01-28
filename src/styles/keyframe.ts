@@ -8,3 +8,14 @@ export const spin = keyframes`
     transform: translate(-50%, -50%) rotate(360deg);
   } 
 `;
+
+export const slideIn = keyframes`
+0% {
+  transform: translateY(100%);
+  opacity: 0.5;
+}
+100% {
+  transform: translateY(0%);
+  opacity: 1;
+}
+`;
