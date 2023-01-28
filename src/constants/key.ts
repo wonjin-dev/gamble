@@ -3,4 +3,5 @@ export const ATOM_KEY = {
   POSITIVE2: 'POSITIVE2',
   NEAGTIVE: 'NEGATIVE',
   PBT: 'PROBABILITY',
+  TOAST: 'TOAST',
 };

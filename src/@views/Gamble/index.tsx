@@ -5,6 +5,8 @@ import {rem} from '@styles/theme';
 import useGamble, {AbilityType} from '@hooks/gamble/useGamble';
 import {useModal} from '@hooks/useModal';
 import ConfirmModal from '@views/@common/Modals/ConfirmModal';
+import {useToast} from '@hooks/useToast';
+import TextToast from '@views/@common/Modals/TextToast';
 import GambleBoard from './components/Board';
 import GambleResetModalContent from './components/GambleResetModalContent';
 
@@ -15,11 +17,13 @@ interface Props {
 const GambleScreen: FC<Props> = ({abilities}) => {
   const gamble = useGamble(abilities);
   const resetModalProps = useModal();
+  const {showToast} = useToast();
 
   const handleResetClick = useCallback(() => {
     gamble.reset();
     resetModalProps.hideModal();
-  }, [gamble, resetModalProps]);
+    showToast('초기화 되었습니다');
+  }, [gamble, resetModalProps, showToast]);
 
   return (
     <Container>
