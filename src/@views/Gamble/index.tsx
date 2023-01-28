@@ -6,7 +6,6 @@ import useGamble, {AbilityType} from '@hooks/gamble/useGamble';
 import {useModal} from '@hooks/useModal';
 import ConfirmModal from '@views/@common/Modals/ConfirmModal';
 import {useToast} from '@hooks/useToast';
-import TextToast from '@views/@common/Modals/TextToast';
 import GambleBoard from './components/Board';
 import GambleResetModalContent from './components/GambleResetModalContent';
 
