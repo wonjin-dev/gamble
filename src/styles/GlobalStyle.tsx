@@ -6,11 +6,6 @@ const globalStyleSheet = (): SerializedStyles => css`
   body {
     padding: 0;
     margin: 0;
-    background-color: ${COLORS.DARK_GREY};
-    max-width: 390px;
-    min-width: 320px;
-    height: 100%;
-    margin: 0 auto;
   }
 
   body {

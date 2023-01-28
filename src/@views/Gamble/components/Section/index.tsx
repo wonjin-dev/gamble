@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import {FC, useMemo} from 'react';
 import BaseButton from '@components/BaseButton';
-import {rem} from '@styles/theme';
+import {COLORS, rem} from '@styles/theme';
 import {AbilityType, GambleProps, GambleSectionList} from '@hooks/gamble/useGamble';
 import {IMAGES} from '@constants/image';
 import Score from './Score';
@@ -44,7 +44,7 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
   }, [pbt, type]);
 
   return (
-    <Container>
+    <Container isNegativeSection={type === 'negative'}>
       <AbilityImageWarpper>
         <AbilityImg src={abilityImage} />
       </AbilityImageWarpper>
@@ -60,13 +60,15 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{isNegativeSection: boolean}>`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: ${rem(4)};
-  outline: ${rem(1)} solid black;
+  outline: ${(props) =>
+    props.isNegativeSection ? `${rem(1)} solid ${COLORS.NEGATIVE_SECTION}` : `${rem(1)} solid black`};
   border-radius: ${rem(6)};
+  margin-top: ${(props) => props.isNegativeSection && rem(20)};
 `;
 
 const Content = styled.div`
