@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import {FC, Fragment} from 'react';
+import {FC, Fragment, memo} from 'react';
 import {rem} from '@styles/theme';
 import useGambleResult from '@hooks/gamble/useGambleResult';
 
@@ -24,7 +24,7 @@ const Result: FC = () => {
   );
 };
 
-export default Result;
+export default memo(Result);
 
 const ResultImage = styled.img`
   width: 100%;

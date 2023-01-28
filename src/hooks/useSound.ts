@@ -9,7 +9,9 @@ const useSound = (src: string) => {
   });
 
   const play = useCallback(() => {
-    sound && sound.play();
+    if (sound) {
+      sound.play();
+    }
   }, [sound]);
 
   return {play};
