@@ -29,7 +29,17 @@ const GambleScreen: FC<Props> = ({abilities}) => {
     <Container>
       <GambleBoard isOver={gamble.isOver} gamble={gamble} />
       <ButtonsWrapper>
-        <BaseButton value={'다시 뽑기'} width={250} onClick={() => resetModalProps.showModal()} />
+        <BaseButton
+          value={'다시 뽑기'}
+          width={250}
+          onClick={() => {
+            if (gamble.isOver) {
+              gamble.reset();
+            } else {
+              resetModalProps.showModal();
+            }
+          }}
+        />
       </ButtonsWrapper>
       <ConfirmModal
         modalProps={resetModalProps}
