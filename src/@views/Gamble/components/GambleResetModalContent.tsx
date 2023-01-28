@@ -25,7 +25,7 @@ const Title = styled.h1`
 `;
 
 const AccentText = styled.span`
-  color: ${COLORS.NEGATIVE_SECTION};
+  color: ${COLORS.RED};
   font-weight: bold;
   font-size: ${rem(16)};
 `;

@@ -49,7 +49,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
             <BaseButton
               value={confrimButtonText ? confrimButtonText : '확인'}
               onClick={onConfirmClick}
-              bgColor={COLORS.CONFIRM}
+              bgColor={COLORS.GOLD_IVORY}
             />
           </Bottom>
         </Container>
