@@ -15,7 +15,8 @@
         ],
         "pathGroupsExcludedImportTypes": ["react"]
       }
-    ],
-    "no-unused-vars": "warn"
+    ]
+    // TODO: next page props & const enum not use warning solve
+    // "no-unused-vars": "warn"
   }
 }
