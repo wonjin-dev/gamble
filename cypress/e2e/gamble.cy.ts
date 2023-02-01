@@ -19,9 +19,12 @@ describe('gamble', () => {
   });
 
   it('결과 확인하기', () => {
-    completeGamble(() => cy.get(':nth-child(1) > .css-1i0retr').click());
-    completeGamble(() => cy.get(':nth-child(2) > .css-1i0retr').click());
-    completeGamble(() => cy.get(':nth-child(3) > .css-1i0retr').click());
+    completeGamble(() => cy.get(':nth-child(1) > .css-1ggmmzy').click());
+    cy.wait(100);
+    completeGamble(() => cy.get(':nth-child(2) > .css-1ggmmzy').click());
+    cy.wait(100);
+    completeGamble(() => cy.get(':nth-child(3) > .css-1ggmmzy').click());
+    cy.wait(2000);
   });
 });
 
