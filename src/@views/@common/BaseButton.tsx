@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import {FC, HTMLProps} from 'react';
 import {COLORS, rem} from '@styles/theme';
 
-interface BaseButtonProps extends HTMLProps<HTMLButtonElement> {
+export interface BaseButtonProps extends HTMLProps<HTMLButtonElement> {
   value: string;
   className?: string;
   textColor?: string;
@@ -53,5 +53,10 @@ const StyledButton = styled.button<{
   padding: ${rem(6)};
   border: ${({borderColor}) => `${rem(1)} solid ${borderColor}`};
   border-radius: ${rem(8)};
+
   cursor: pointer;
+  :active {
+    background-color: ${COLORS.GREY};
+    color: ${COLORS.WHITE};
+  }
 `;
