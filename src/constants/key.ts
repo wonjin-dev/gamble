@@ -4,6 +4,7 @@ export const ATOM_KEY = {
   NEAGTIVE: 'NEGATIVE',
   PBT: 'PROBABILITY',
   TOAST: 'TOAST',
+  LOCALE: 'LOCALE',
 };
 
 export const STORAGE_KEY = {

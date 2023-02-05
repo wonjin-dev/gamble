@@ -1,7 +1,9 @@
-import {useCallback, useEffect, useMemo, useState} from 'react';
+import {useCallback} from 'react';
+import {useRecoilState} from 'recoil';
 import {STRINGS} from '@constants/locales';
 import {getLocalStorageItems, setLocalStorageItems} from '@utils/storage';
 import {STORAGE_KEY} from '@constants/key';
+import {localeAtom} from '@store/locale';
 import useEffectOnce from './useEffectOnce';
 
 export const enum LocaleType {
@@ -10,7 +12,7 @@ export const enum LocaleType {
 }
 
 const useTranslate = () => {
-  const [lang, setLang] = useState<LocaleType>(LocaleType.KO);
+  const [lang, setLang] = useRecoilState<LocaleType>(localeAtom);
 
   useEffectOnce(() => {
     const saved: LocaleType = getLocalStorageItems(STORAGE_KEY.LOCALE);
@@ -28,7 +30,7 @@ const useTranslate = () => {
       setLang(LocaleType.KO);
       setLocalStorageItems(STORAGE_KEY.LOCALE, LocaleType.KO);
     }
-  }, [lang]);
+  }, [lang, setLang]);
 
   const translate = useCallback(
     (text: keyof typeof STRINGS) => {
