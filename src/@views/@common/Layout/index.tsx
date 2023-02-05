@@ -15,7 +15,7 @@ const Layout: FC<LayoutProps> = ({children}) => {
         <TextToast />
       </Container>
       <NoLayer>
-        <p>현재 해상도는 지원하지 않습니다</p>
+        <h1>현재 해상도는 지원하지 않습니다</h1>
       </NoLayer>
     </Fragment>
   );
@@ -31,6 +31,13 @@ const Container = styled.div`
 
 const NoLayer = styled.div`
   background-color: ${COLORS.WHITE};
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   @media (min-width: 340px) {
     display: none;
   }
