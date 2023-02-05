@@ -4,6 +4,7 @@ import BaseButton from '@components/BaseButton';
 import {COLORS, rem} from '@styles/theme';
 import {AbilityType, GambleProps, GambleSectionList} from '@hooks/gamble/useGamble';
 import {IMAGES} from '@constants/image';
+import useTranslate from '@hooks/useTranslate';
 import Score from './Score';
 
 interface Props {
@@ -12,6 +13,7 @@ interface Props {
 }
 
 const GambleSection: FC<Props> = ({type, gamble}) => {
+  const {translate} = useTranslate();
   const {pbt, detail, enchant} = gamble;
   const details = useMemo(() => detail(type), [detail, type]);
 
@@ -36,28 +38,32 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
 
   const probability = useMemo(() => {
     if (type === 'positive1') {
-      return `성공 확률: ${pbt}`;
+      return `${translate('SUCCESS_PROBABILITY')}: ${pbt}`;
     }
     if (type === 'negative') {
-      return `실패 확률: ${pbt}`;
+      return `${translate('FAIL_PROBABILITY')}: ${pbt}`;
     }
-  }, [pbt, type]);
+  }, [pbt, translate, type]);
 
-  return (
-    <Container isNegativeSection={type === 'negative'}>
-      <AbilityImageWarpper>
-        <AbilityImg src={abilityImage} />
-      </AbilityImageWarpper>
-      <Content>
-        <FlexWrapper>
-          <Ability>{details && details.ability}</Ability>
-          {probability}
-        </FlexWrapper>
-        <Score scoreArr={details ? details.score : []} />
-      </Content>
-      <BaseButton value={'강화'} onClick={() => enchant(type)} width={50} height={32} />
-    </Container>
-  );
+  if (details) {
+    return (
+      <Container isNegativeSection={type === 'negative'}>
+        <AbilityImageWarpper>
+          <AbilityImg src={abilityImage} />
+        </AbilityImageWarpper>
+        <Content>
+          <FlexWrapper>
+            <Ability>{translate(details.ability || 'NULL')}</Ability>
+            {probability}
+          </FlexWrapper>
+          <Score scoreArr={details.score} />
+        </Content>
+        <BaseButton value={translate('GAMBLE')} onClick={() => enchant(type)} width={70} height={32} />
+      </Container>
+    );
+  }
+
+  return null;
 };
 
 const Container = styled.div<{isNegativeSection: boolean}>`
@@ -65,7 +71,8 @@ const Container = styled.div<{isNegativeSection: boolean}>`
   justify-content: space-between;
   align-items: center;
   padding: ${rem(4)};
-  outline: ${(props) => (props.isNegativeSection ? `${rem(1)} solid ${COLORS.RED}` : `${rem(1)} solid black`)};
+  outline: ${(props) =>
+    props.isNegativeSection ? `${rem(1)} solid ${COLORS.RED}` : `${rem(1)} solid ${COLORS.BLACK}`};
   border-radius: ${rem(6)};
   margin-top: ${(props) => props.isNegativeSection && rem(20)};
 `;

@@ -2,6 +2,7 @@ import {CSSProperties, FC, ReactNode} from 'react';
 import styled from '@emotion/styled';
 import {ModalProps} from '@hooks/useModal';
 import {COLORS, rem} from '@styles/theme';
+import useTranslate from '@hooks/useTranslate';
 import BaseModal from './BaseModal';
 import BaseButton from '../BaseButton';
 
@@ -36,6 +37,8 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
   onCancelClick,
   onConfirmClick,
 }) => {
+  const {translate} = useTranslate();
+
   if (modalProps.modalShowing) {
     return (
       <BaseModal modalProps={modalProps}>
@@ -43,11 +46,11 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
           {content}
           <Bottom>
             <BaseButton
-              value={cancelButtonText ? cancelButtonText : '취소'}
+              value={cancelButtonText ? cancelButtonText : `${translate('CANCEL')}`}
               onClick={onCancelClick ? onCancelClick : () => modalProps.hideModal()}
             />
             <BaseButton
-              value={confrimButtonText ? confrimButtonText : '확인'}
+              value={confrimButtonText ? confrimButtonText : `${translate('CONFIRM')}`}
               onClick={onConfirmClick}
               bgColor={COLORS.GOLD_IVORY}
             />

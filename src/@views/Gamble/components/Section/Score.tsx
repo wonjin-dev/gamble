@@ -1,19 +1,24 @@
 import styled from '@emotion/styled';
 import {FC} from 'react';
 import {COLORS, rem} from '@styles/theme';
+import useTranslate from '@hooks/useTranslate';
 
 interface Props {
   scoreArr: boolean[];
 }
 
 const Score: FC<Props> = ({scoreArr}) => {
+  const {translate} = useTranslate();
+
   return (
     <Container>
       {scoreArr.map((score: boolean, index: number) => {
         return <GambleResult key={index} success={score} />;
       })}
       <ProgressionWrapper isFinish={scoreArr.length === 10}>
-        <span>진행 상황: {scoreArr.length}/10</span>
+        <span>
+          {translate('PROGRESSION')}: {scoreArr.length}/10
+        </span>
       </ProgressionWrapper>
     </Container>
   );

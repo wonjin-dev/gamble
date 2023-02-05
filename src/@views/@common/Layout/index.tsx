@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import {FC, Fragment, ReactNode} from 'react';
 import {COLORS} from '@styles/theme';
+import useTranslate from '@hooks/useTranslate';
 import TextToast from '../Modals/TextToast';
 
 interface LayoutProps {
@@ -8,6 +9,8 @@ interface LayoutProps {
 }
 
 const Layout: FC<LayoutProps> = ({children}) => {
+  const {translate} = useTranslate();
+
   return (
     <Fragment>
       <Container>
@@ -15,7 +18,7 @@ const Layout: FC<LayoutProps> = ({children}) => {
         <TextToast />
       </Container>
       <NoLayer>
-        <h1>현재 해상도는 지원하지 않습니다</h1>
+        <h1>{translate('NO_APPLY_SCREEN')}</h1>
       </NoLayer>
     </Fragment>
   );
