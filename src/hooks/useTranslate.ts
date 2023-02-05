@@ -11,6 +11,8 @@ export const enum LocaleType {
   EN = 'en',
 }
 
+export type StringList = keyof typeof STRINGS;
+
 const useTranslate = () => {
   const [lang, setLang] = useRecoilState<LocaleType>(localeAtom);
 
@@ -33,7 +35,7 @@ const useTranslate = () => {
   }, [lang, setLang]);
 
   const translate = useCallback(
-    (text: keyof typeof STRINGS) => {
+    (text: StringList) => {
       if (lang === LocaleType.KO) {
         return STRINGS[text].KO;
       } else {

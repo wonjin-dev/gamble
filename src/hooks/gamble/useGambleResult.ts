@@ -6,13 +6,15 @@ import {negativeAtom} from '@store/gamble/negative';
 import {IMAGES} from '@constants/image';
 import {SOUNDS} from '@constants/sound';
 import useSound from '@hooks/useSound';
+import {StringList} from '@hooks/useTranslate';
 import {AbilityType, GambleType} from './useGamble';
 
 type GambleResultType = 'POSITIVE' | 'NEGATIVE';
+// export type TranslateString = {KO: string; EN: string};
 interface GambleResult {
-  mainModifier: string;
-  subModifier: string;
-  animal: string;
+  mainModifier: StringList;
+  subModifier: StringList;
+  animal: StringList;
   img: string;
 }
 
@@ -22,16 +24,16 @@ const getGambleResult = (ability: AbilityType | undefined, type: GambleResultTyp
   if (ability === AbilityType.BEAUTY) {
     if (type === 'POSITIVE') {
       return {
-        mainModifier: '멋있고',
-        subModifier: '멋있는',
-        animal: '늑대',
+        mainModifier: 'BEAUTY_POSITIVE_MAIN_MODIFIER',
+        subModifier: 'BEAUTY_POSITIVE_SUB_MODIFIER',
+        animal: 'BEAUTY_POSITIVE_ANIMAL',
         img: IMAGES.WOLF,
       };
     } else {
       return {
-        mainModifier: '못생기고',
-        subModifier: '못생긴',
-        animal: '코주부원숭이',
+        mainModifier: 'BEAUTY_NEGATIVE_MAIN_MODIFIER',
+        subModifier: 'BEAUTY_NEGATIVE_SUB_MODIFIER',
+        animal: 'BEAUTY_NEGATIVE_ANIMAL',
         img: IMAGES.PROBOSCIS_MONKEY,
       };
     }
@@ -40,16 +42,16 @@ const getGambleResult = (ability: AbilityType | undefined, type: GambleResultTyp
   if (ability === AbilityType.INTELLIGENCE) {
     if (type === 'POSITIVE') {
       return {
-        mainModifier: '똑똑하고',
-        subModifier: '똑똑한',
-        animal: '침팬지',
+        mainModifier: 'INTELLIGENCE_POSITIVE_MAIN_MODIFIER',
+        subModifier: 'INTELLIGENCE_POSITIVE_SUB_MODIFIER',
+        animal: 'INTELLIGENCE_POSITIVE_ANIMAL',
         img: IMAGES.CHIMP,
       };
     } else {
       return {
-        mainModifier: '멍청하고',
-        subModifier: '멍청한',
-        animal: '금붕어',
+        mainModifier: 'INTELLIGENCE_NEGATIVE_MAIN_MODIFIER',
+        subModifier: 'INTELLIGENCE_NEGATIVE_SUB_MODIFIER',
+        animal: 'INTELLIGENCE_NEGATIVE_ANIMAL',
         img: IMAGES.GOLDFISH,
       };
     }
@@ -58,16 +60,16 @@ const getGambleResult = (ability: AbilityType | undefined, type: GambleResultTyp
   if (ability === AbilityType.SPEED) {
     if (type === 'POSITIVE') {
       return {
-        mainModifier: '민첩하고',
-        subModifier: '민첩한',
-        animal: '치타',
+        mainModifier: 'SPEED_POSITIVE_MAIN_MODIFIER',
+        subModifier: 'SPEED_POSITIVE_SUB_MODIFIER',
+        animal: 'SPEED_POSITIVE_ANIMAL',
         img: IMAGES.CHEETAH,
       };
     } else {
       return {
-        mainModifier: '게으르고',
-        subModifier: '게으른',
-        animal: '나무늘보',
+        mainModifier: 'SPEED_NEGATIVE_MAIN_MODIFIER',
+        subModifier: 'SPEED_NEGATIVE_SUB_MODIFIER',
+        animal: 'SPEED_NEGATIVE_ANIMAL',
         img: IMAGES.SLOTH,
       };
     }
@@ -76,25 +78,25 @@ const getGambleResult = (ability: AbilityType | undefined, type: GambleResultTyp
   if (ability === AbilityType.STRENGTH) {
     if (type === 'POSITIVE') {
       return {
-        mainModifier: '힘세고',
-        subModifier: '힘 쎈',
-        animal: '호랑이',
+        mainModifier: 'STRENGTH_POSITIVE_MAIN_MODIFIER',
+        subModifier: 'STRENGTH_POSITIVE_SUB_MODIFIER',
+        animal: 'STRENGTH_POSITIVE_ANIMAL',
         img: IMAGES.TIGER,
       };
     } else {
       return {
-        mainModifier: '나약하고',
-        subModifier: '나약한',
-        animal: '달팽이',
+        mainModifier: 'STRENGTH_NEGATIVE_MAIN_MODIFIER',
+        subModifier: 'STRENGTH_NEGATIVE_SUB_MODIFIER',
+        animal: 'STRENGTH_NEGATIVE_ANIMAL',
         img: IMAGES.SNAIL,
       };
     }
   }
 
   return {
-    mainModifier: '',
-    subModifier: '',
-    animal: '',
+    mainModifier: 'NULL',
+    subModifier: 'NULL',
+    animal: 'NULL',
     img: '',
   };
 };
@@ -134,8 +136,6 @@ const useGambleResult = () => {
     return result.animal;
   }, [negative.ability, negativeSectionResultType]);
 
-  const textResult = `${firstModifier} ${secondModifier} ${animal}`;
-
   const positiveResultSound = useSound(SOUNDS.GAMBLE_RESULT_POSITIVE);
   const negativeResultSound = useSound(SOUNDS.GAMBLE_RESULT_NEGATIVE);
 
@@ -147,7 +147,13 @@ const useGambleResult = () => {
     }
   }, [negativeResultSound, isNegativeResult, positiveResultSound]);
 
-  return {resultSound, textResult, img: getGambleResult(negative.ability, negativeSectionResultType).img};
+  return {
+    resultSound,
+    firstModifier,
+    secondModifier,
+    animal,
+    img: getGambleResult(negative.ability, negativeSectionResultType).img,
+  };
 };
 
 export default useGambleResult;

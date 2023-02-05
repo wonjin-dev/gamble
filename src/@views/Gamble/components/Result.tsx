@@ -1,10 +1,17 @@
 import styled from '@emotion/styled';
-import {FC, Fragment, memo} from 'react';
+import {FC, Fragment, memo, useMemo} from 'react';
 import {rem} from '@styles/theme';
 import useGambleResult from '@hooks/gamble/useGambleResult';
+import useTranslate from '@hooks/useTranslate';
 
 const Result: FC = () => {
-  const {textResult, img, resultSound} = useGambleResult();
+  const {translate} = useTranslate();
+  const {animal, firstModifier, secondModifier, img, resultSound} = useGambleResult();
+  console.log(animal, firstModifier, secondModifier);
+  const textResult = useMemo(
+    () => `${translate(firstModifier)} ${translate(secondModifier)} ${translate(animal)}`,
+    [animal, firstModifier, secondModifier, translate]
+  );
 
   // 스피너의 시간을 의도적으로 조정했기 때문에 필요한 로직
   setTimeout(() => {
@@ -14,7 +21,7 @@ const Result: FC = () => {
   return (
     <Fragment>
       <Title>
-        <p className="intro">당신은 전생에 ...</p>
+        <p className="intro">{translate('RESULT_MESSAGE1')} ...</p>
         <p className="result">{textResult}</p>
       </Title>
       <picture>

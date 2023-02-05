@@ -10,10 +10,10 @@ import useSound from '@hooks/useSound';
 import {SOUNDS} from '@constants/sound';
 
 export const enum AbilityType {
-  STRENGTH = '근력',
-  INTELLIGENCE = '똑똑함',
-  SPEED = '빠름',
-  BEAUTY = '아름다움',
+  STRENGTH = 'STRENGTH',
+  INTELLIGENCE = 'INTELLIGENCE',
+  SPEED = 'SPEED',
+  BEAUTY = 'BEAUTY',
 }
 
 export interface GambleSectionType {

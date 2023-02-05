@@ -23,8 +23,8 @@ const GambleScreen: FC<Props> = ({abilities}) => {
   const handleResetClick = useCallback(() => {
     gamble.reset();
     resetModalProps.hideModal();
-    showToast('초기화 되었습니다');
-  }, [gamble, resetModalProps, showToast]);
+    showToast(`${translate('INITIALIZED')}`);
+  }, [gamble, resetModalProps, showToast, translate]);
 
   return (
     <Fragment>
