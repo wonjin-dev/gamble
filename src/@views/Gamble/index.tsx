@@ -1,4 +1,4 @@
-import {FC, useCallback} from 'react';
+import {FC, Fragment, useCallback} from 'react';
 import styled from '@emotion/styled';
 import BaseButton from '@components/BaseButton';
 import {COLORS, rem} from '@styles/theme';
@@ -25,7 +25,7 @@ const GambleScreen: FC<Props> = ({abilities}) => {
   }, [gamble, resetModalProps, showToast]);
 
   return (
-    <Container>
+    <Fragment>
       <GambleBoard isOver={gamble.isOver} gamble={gamble} />
       <ButtonsWrapper>
         <BaseButton
@@ -45,18 +45,11 @@ const GambleScreen: FC<Props> = ({abilities}) => {
         onConfirmClick={handleResetClick}
         content={<GambleResetModalContent />}
       />
-    </Container>
+    </Fragment>
   );
 };
 
 export default GambleScreen;
-
-const Container = styled.div`
-  max-width: ${rem(400)};
-  margin: 0 auto;
-  height: 100vh;
-  background-color: ${COLORS.WHITE};
-`;
 
 const ButtonsWrapper = styled.div`
   display: flex;

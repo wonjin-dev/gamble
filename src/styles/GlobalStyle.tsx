@@ -1,5 +1,5 @@
 import {css, Global, SerializedStyles} from '@emotion/react';
-import {BASE_FONT_SIZE, COLORS} from './theme';
+import {BASE_FONT_SIZE, COLORS, rem} from './theme';
 
 const globalStyleSheet = (): SerializedStyles => css`
   html,
@@ -10,6 +10,10 @@ const globalStyleSheet = (): SerializedStyles => css`
   }
 
   body {
+    max-width: ${rem(400)};
+    margin: 0 auto;
+    height: 100vh;
+    background-color: ${COLORS.WHITE};
     font-size: ${BASE_FONT_SIZE}px;
   }
 
