@@ -5,3 +5,7 @@ export const ATOM_KEY = {
   PBT: 'PROBABILITY',
   TOAST: 'TOAST',
 };
+
+export const STORAGE_KEY = {
+  LOCALE: 'LOCALSTORAGE_LOCALE',
+};

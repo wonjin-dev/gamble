@@ -1,9 +1,5 @@
 const preChecker = (): boolean => {
-  try {
-    return typeof window !== 'undefined';
-  } catch {
-    return false;
-  }
+  return typeof window !== 'undefined';
 };
 
 export const getLocalStorageItems = (key: string) => {

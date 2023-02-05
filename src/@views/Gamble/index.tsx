@@ -6,6 +6,7 @@ import useGamble, {AbilityType} from '@hooks/gamble/useGamble';
 import {useModal} from '@hooks/useModal';
 import ConfirmModal from '@views/@common/Modals/ConfirmModal';
 import {useToast} from '@hooks/useToast';
+import useTranslate from '@hooks/useTranslate';
 import GambleBoard from './components/Board';
 import GambleResetModalContent from './components/GambleResetModalContent';
 
@@ -17,6 +18,7 @@ const GambleScreen: FC<Props> = ({abilities}) => {
   const gamble = useGamble(abilities);
   const resetModalProps = useModal();
   const {showToast} = useToast();
+  const {translate} = useTranslate();
 
   const handleResetClick = useCallback(() => {
     gamble.reset();
@@ -29,7 +31,7 @@ const GambleScreen: FC<Props> = ({abilities}) => {
       <GambleBoard isOver={gamble.isOver} gamble={gamble} />
       <ButtonsWrapper>
         <BaseButton
-          value={'다시 뽑기'}
+          value={translate('RETRY')}
           width={250}
           onClick={() => {
             if (gamble.isOver) {
