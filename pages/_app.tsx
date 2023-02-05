@@ -1,7 +1,7 @@
 import {RecoilRoot} from 'recoil';
 import {NextPage} from 'next';
 import {ReactElement, ReactNode} from 'react';
-import GlobalStyle from 'src/styles/GlobalStyle';
+import GlobalStyle from '@styles/GlobalStyle';
 import type {AppProps} from 'next/app';
 
 export type NextLayoutPage<PageProps = {}> = NextPage<PageProps> & {
