@@ -1,5 +1,15 @@
 # GAMBLE
 
+<h2>전생의 나는 어떤 동물이었을까요 ?</h2>
+<br>
+랜덤하게 생성된 요소 3가지에 대하여 gambling을 통해 전생의 동물을 확인할 수 있습니다
+
+<br>
+
+로스트 아크 강화 시스템인 돌 깎기에서 착안하여 생성한 프로젝트 입니다
+
+<hr><br>
+
 프로젝트를 처음 실행시키신다면 `npm run init`을 통해 프로젝트를 쉽게 확인하실 수 있습니다<br>
 `npm run start`를 통해 프로젝트를 확인하실 수 있습니다<br>
 `npm run storybook`을 통해 스토리북을 시작할 수 있습니다<br>
@@ -79,10 +89,3 @@ describe('[domain] testFn', () => {
 ```
 
 </details>
-
-<!-- <hr><br>
-
-<div style={{dislay:'flex'}}>
-<img src ="https://user-images.githubusercontent.com/82315118/212552921-1dc9aa88-b580-41de-b7ce-02d2915802d8.png" width="150" height="286" />
-<img src ="https://user-images.githubusercontent.com/82315118/212553027-0ff311d5-c236-40b7-904e-69d8694df541.png" width="150" height="286" />
-</div> -->
