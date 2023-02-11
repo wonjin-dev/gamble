@@ -1,19 +1,25 @@
 import styled from '@emotion/styled';
-import {FC} from 'react';
+import {FC, Fragment} from 'react';
 import {COLORS, rem} from '@styles/theme';
 import useTranslate from '@hooks/useTranslate';
 import {IMAGES} from '@constants/image';
+import GradientShadow from '@views/@common/GradientShadow';
 
 const GNB: FC = () => {
   const {changeLangType} = useTranslate();
 
   return (
-    <Container>
-      <h1>GAMBLE</h1>
-      <LocaleButton onClick={changeLangType}>
-        <LocaleButtonImage src={IMAGES.WORLD} />
-      </LocaleButton>
-    </Container>
+    <Fragment>
+      <Container>
+        <h1>GAMBLE</h1>
+        <LocaleButton onClick={changeLangType}>
+          <LocaleButtonImage src={IMAGES.WORLD} />
+        </LocaleButton>
+      </Container>
+      <GradientWrapper>
+        <GradientShadow height={10} />
+      </GradientWrapper>
+    </Fragment>
   );
 };
 
@@ -23,7 +29,6 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   padding: 0 ${rem(8)};
-  box-shadow: 0 ${rem(10)} ${COLORS.BLACK};
   position: relative;
 `;
 
@@ -39,4 +44,9 @@ const LocaleButtonImage = styled.img`
   width: 100%;
   height: 100%;
   object-fit: contain;
+`;
+
+const GradientWrapper = styled.div`
+  position: sticky;
+  bottom: 0;
 `;
