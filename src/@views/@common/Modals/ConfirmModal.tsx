@@ -73,6 +73,7 @@ const Container = styled.div<{width?: number; height?: number; style?: CSSProper
   background-color: ${COLORS.WHITE};
   border-radius: ${rem(8)};
   width: 40%;
+  min-width: ${rem(200)};
   height: 24%;
   padding-bottom: ${rem(30)};
 `;
