@@ -14,7 +14,7 @@ interface Props {
 
 const GambleSection: FC<Props> = ({type, gamble}) => {
   const {translate} = useTranslate();
-  const {pbt, detail, enchant} = gamble;
+  const {probability, detail, enchant} = gamble;
   const details = useMemo(() => detail(type), [detail, type]);
 
   const abilityImage = useMemo(() => {
@@ -36,14 +36,14 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
     return undefined;
   }, [details]);
 
-  const probability = useMemo(() => {
+  const probabilityText = useMemo(() => {
     if (type === 'positive1') {
-      return `${translate('SUCCESS_PROBABILITY')}: ${pbt}`;
+      return `${translate('SUCCESS_PROBABILITY')}: ${probability}`;
     }
     if (type === 'negative') {
-      return `${translate('FAIL_PROBABILITY')}: ${pbt}`;
+      return `${translate('FAIL_PROBABILITY')}: ${probability}`;
     }
-  }, [pbt, translate, type]);
+  }, [probability, translate, type]);
 
   if (details) {
     return (
@@ -54,7 +54,7 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
         <Content>
           <FlexWrapper>
             <Ability>{translate(details.ability || 'NULL')}</Ability>
-            {probability}
+            {probabilityText}
           </FlexWrapper>
           <Score scoreArr={details.score} />
         </Content>

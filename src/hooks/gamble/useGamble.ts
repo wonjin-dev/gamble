@@ -5,7 +5,7 @@ import {positive1Atom} from '@store/gamble/positive1';
 import {positive2Atom} from '@store/gamble/positive2';
 import {negativeAtom} from '@store/gamble/negative';
 import useEffectOnce from '@hooks/useEffectOnce';
-import {probabilityAtom} from '@store/gamble/pbt';
+import {probabilityAtom} from '@store/gamble/probability';
 import useSound from '@hooks/useSound';
 import {SOUNDS} from '@constants/sound';
 
@@ -30,7 +30,7 @@ export interface GambleType {
 }
 
 export interface GambleProps {
-  pbt: number;
+  probability: number;
   isOver: boolean;
   detail: (section: GambleSectionList) => GambleType | undefined;
   enchant: (section: GambleSectionList) => void;
@@ -38,7 +38,7 @@ export interface GambleProps {
 }
 
 const useGamble = (abilities: AbilityType[]): GambleProps => {
-  const [pbt, setPbt] = useRecoilState(probabilityAtom);
+  const [probability, setProbability] = useRecoilState(probabilityAtom);
   const [positive1, setPositive1] = useRecoilState(positive1Atom);
   const [positive2, setPositive2] = useRecoilState(positive2Atom);
   const [negative, setNegative] = useRecoilState(negativeAtom);
@@ -74,7 +74,7 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
 
   const enchant = useCallback(
     (section: GambleSectionList) => {
-      const res = gamble(pbt);
+      const res = gamble(probability);
       const target = detail(section);
 
       const attempt = (result: boolean) => {
@@ -90,16 +90,16 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
       };
 
       const success = () => {
-        if (pbt > 25) {
-          setPbt((prev) => prev - 10);
+        if (probability > 25) {
+          setProbability((prev) => prev - 10);
           attempt(true);
           successSound();
         }
       };
 
       const fail = () => {
-        if (pbt < 75) {
-          setPbt((prev) => prev + 10);
+        if (probability < 75) {
+          setProbability((prev) => prev + 10);
           attempt(false);
           failSound();
         }
@@ -114,7 +114,7 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
       }
     },
     [
-      pbt,
+      probability,
       detail,
       positive1,
       positive2,
@@ -122,7 +122,7 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
       setPositive1,
       setPositive2,
       setNegative,
-      setPbt,
+      setProbability,
       successSound,
       failSound,
     ]
@@ -134,10 +134,10 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
     setPositive1({ability: newAbilities[0], score: []});
     setPositive2({ability: newAbilities[1], score: []});
     setNegative({ability: newAbilities[2], score: []});
-    setPbt(75);
+    setProbability(75);
   };
 
-  return {pbt, detail, enchant, reset, isOver};
+  return {probability: probability, detail, enchant, reset, isOver};
 };
 
 export default useGamble;
