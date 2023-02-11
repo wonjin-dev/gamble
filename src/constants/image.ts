@@ -11,5 +11,6 @@ export const IMAGES = {
   CHEETAH: '/img/CHEETAH.png',
   PROBOSCIS_MONKEY: '/img/PROBOSCIS_MONKEY.png',
   WOLF: '/img/WOLF.png',
-  SPINNER: '/img/spinner.svg',
+  SPINNER: '/icon/spinner.svg',
+  WORLD: 'icon/world.png',
 };
