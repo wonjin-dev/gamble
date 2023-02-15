@@ -7,10 +7,9 @@ import {IMAGES} from '@constants/image';
 import {SOUNDS} from '@constants/sound';
 import useSound from '@hooks/useSound';
 import {StringList} from '@hooks/useTranslate';
-import {AbilityType, GambleType} from './useGamble';
+import {AbilityType, GambleEnchantType, GamblePropertyType} from './useGamble';
 
 type GambleResultType = 'POSITIVE' | 'NEGATIVE';
-// export type TranslateString = {KO: string; EN: string};
 interface GambleResult {
   mainModifier: StringList;
   subModifier: StringList;
@@ -18,7 +17,8 @@ interface GambleResult {
   img: string;
 }
 
-const getGambleScore = (arr: boolean[]): number => arr.filter((arrBoolean) => arrBoolean).length;
+const getGambleScore = (arr: GambleEnchantType[]): number =>
+  arr.filter((scores) => scores !== GambleEnchantType.SUCCESS).length;
 
 const getGambleResult = (ability: AbilityType | undefined, type: GambleResultType): GambleResult => {
   if (ability === AbilityType.BEAUTY) {
@@ -109,7 +109,7 @@ const useGambleResult = () => {
   const isNegativeResult: boolean = useMemo(() => getGambleScore(negative.score) >= 5, [negative.score]);
   const negativeSectionResultType: GambleResultType = isNegativeResult ? 'NEGATIVE' : 'POSITIVE';
 
-  const sortedGamlbeArray: GambleType[] = [positive1, positive2].sort(
+  const sortedGamlbeArray: GamblePropertyType[] = [positive1, positive2].sort(
     (a, b) => getGambleScore(b.score) - getGambleScore(a.score)
   );
   const [firstAbility, secondAbility] = sortedGamlbeArray;

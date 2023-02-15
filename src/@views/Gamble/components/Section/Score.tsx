@@ -2,9 +2,10 @@ import styled from '@emotion/styled';
 import {FC} from 'react';
 import {COLORS, rem} from '@styles/theme';
 import useTranslate from '@hooks/useTranslate';
+import {GambleEnchantType} from '@hooks/gamble/useGamble';
 
 interface Props {
-  scoreArr: boolean[];
+  scoreArr: GambleEnchantType[];
 }
 
 const Score: FC<Props> = ({scoreArr}) => {
@@ -12,8 +13,8 @@ const Score: FC<Props> = ({scoreArr}) => {
 
   return (
     <Container>
-      {scoreArr.map((score: boolean, index: number) => {
-        return <GambleResult key={index} success={score} />;
+      {scoreArr.map((score: GambleEnchantType, index: number) => {
+        return <GambleResult key={index} status={score} />;
       })}
       <ProgressionWrapper isFinish={scoreArr.length === 10}>
         <span>
@@ -35,11 +36,13 @@ const Container = styled.div`
   gap: ${rem(4)};
 `;
 
-const GambleResult = styled.div<{success: boolean}>`
+const GambleResult = styled.div<{status: GambleEnchantType}>`
   width: ${rem(12)};
   height: ${rem(12)};
   border-radius: 50%;
-  background-color: ${({success}) => (success ? `${COLORS.AQUA}` : `${COLORS.BROWN_RED}`)};
+  border: ${({status}) => status === GambleEnchantType.PENDING && `${rem(1)} solid ${COLORS.GREY}`};
+  background-color: ${({status}) => status === GambleEnchantType.SUCCESS && COLORS.AQUA};
+  background-color: ${({status}) => status === GambleEnchantType.FAIL && COLORS.GREY};
 `;
 
 const ProgressionWrapper = styled.div<{isFinish: boolean}>`
