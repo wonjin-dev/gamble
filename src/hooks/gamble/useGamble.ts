@@ -8,6 +8,7 @@ import useEffectOnce from '@hooks/useEffectOnce';
 import {probabilityAtom} from '@store/gamble/probability';
 import useSound from '@hooks/useSound';
 import {SOUNDS} from '@constants/sound';
+import {checkGambleProceed} from '@utils/filters';
 
 export const enum AbilityType {
   STRENGTH = 'STRENGTH',
@@ -50,9 +51,7 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
   const [negative, setNegative] = useRecoilState(negativeAtom);
   const {play: successSound} = useSound(SOUNDS.SUCCESS);
   const {play: failSound} = useSound(SOUNDS.FAIL);
-  const checkGambleProceed = (scores: GambleEnchantType[]) => {
-    return scores.filter((score) => score === GambleEnchantType.PENDING).length;
-  };
+
   const isOver = useMemo(
     () =>
       checkGambleProceed(positive1.score) === 0 &&
@@ -103,14 +102,17 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
       const target = detail(section);
 
       const attempt = (result: GambleEnchantType) => {
+        const exist = (target && target.score.filter((score) => score !== GambleEnchantType.PENDING)) || [];
+        const fillPending = (target && target.score.filter((score) => score === GambleEnchantType.PENDING)) || [];
+
         if (target === positive1) {
-          return setPositive1({...target, score: [result, ...target.score].slice(0, 10)});
+          return setPositive1({...target, score: [...exist, result, ...fillPending].slice(0, 10)});
         }
         if (target === positive2) {
-          return setPositive2({...target, score: [result, ...target.score].slice(0, 10)});
+          return setPositive2({...target, score: [...exist, result, ...fillPending].slice(0, 10)});
         }
         if (target === negative) {
-          return setNegative({...target, score: [result, ...target.score].slice(0, 10)});
+          return setNegative({...target, score: [...exist, result, ...fillPending].slice(0, 10)});
         }
       };
 
