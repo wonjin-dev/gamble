@@ -60,8 +60,8 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
         </Content>
 
         <ActionContentWrapper>
-          <p className="probability">{probabilityText}</p>
-          <BaseButton value={translate('GAMBLE')} onClick={() => enchant(type)} width={70} height={32} />
+          <div className="probability">{probabilityText}</div>
+          <BaseButton value={translate('GAMBLE')} onClick={() => enchant(type)} width={60} height={30} />
           <ProgressionWrapper isFinish={progress === 10}>
             <p className="progress">
               {translate('PROGRESSION')}: {progress} / 10
@@ -89,9 +89,8 @@ const Container = styled.div<{isNegativeSection: boolean}>`
 `;
 
 const Content = styled.div`
-  width: 100%;
   margin: 0 ${rem(6)};
-  margin-left: ${rem(16)};
+  margin-left: 3%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -119,8 +118,15 @@ const ActionContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: ${rem(2)};
-  width: 100%;
+  width: 30%;
+  margin-right: ${rem(6)};
+  position: relative;
+  padding-top: ${rem(35)};
+
+  .probability {
+    position: absolute;
+    top: 0;
+  }
 `;
 
 const ProgressionWrapper = styled.div<{isFinish: boolean}>`
@@ -128,18 +134,9 @@ const ProgressionWrapper = styled.div<{isFinish: boolean}>`
     display: none;
   }
 
-  p {
-    text-align: end;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .probability {
-    font-weight: 400;
-  }
-
   .progress {
     font-weight: 700;
+    text-align: end;
     color: ${({isFinish}) => isFinish && COLORS.RED};
   }
 `;
