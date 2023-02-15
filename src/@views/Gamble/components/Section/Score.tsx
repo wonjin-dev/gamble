@@ -3,6 +3,7 @@ import {FC} from 'react';
 import {COLORS, rem} from '@styles/theme';
 import useTranslate from '@hooks/useTranslate';
 import {GambleEnchantType} from '@hooks/gamble/useGamble';
+import {checkGambleChance} from '@utils/filters';
 
 interface Props {
   scoreArr: GambleEnchantType[];
@@ -10,15 +11,16 @@ interface Props {
 
 const Score: FC<Props> = ({scoreArr}) => {
   const {translate} = useTranslate();
+  const progress = 10 - checkGambleChance(scoreArr);
 
   return (
     <Container>
       {scoreArr.map((score: GambleEnchantType, index: number) => {
         return <GambleResult key={index} status={score} />;
       })}
-      <ProgressionWrapper isFinish={scoreArr.length === 10}>
+      <ProgressionWrapper isFinish={progress === 10}>
         <span>
-          {translate('PROGRESSION')}: {scoreArr.length}/10
+          {translate('PROGRESSION')}: {progress}/10
         </span>
       </ProgressionWrapper>
     </Container>
@@ -46,11 +48,11 @@ const GambleResult = styled.div<{status: GambleEnchantType}>`
 `;
 
 const ProgressionWrapper = styled.div<{isFinish: boolean}>`
-  @media (max-width: 475px) {
+  @media (max-width: 510px) {
     display: none;
   }
 
-  @media (min-width: 475px) {
+  @media (min-width: 511px) {
     position: absolute;
     width: ${rem(90)};
     right: ${rem(-165)};

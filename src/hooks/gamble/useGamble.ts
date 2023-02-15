@@ -8,7 +8,7 @@ import useEffectOnce from '@hooks/useEffectOnce';
 import {probabilityAtom} from '@store/gamble/probability';
 import useSound from '@hooks/useSound';
 import {SOUNDS} from '@constants/sound';
-import {checkGambleProceed} from '@utils/filters';
+import {checkGambleChance} from '@utils/filters';
 
 export const enum AbilityType {
   STRENGTH = 'STRENGTH',
@@ -54,9 +54,9 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
 
   const isOver = useMemo(
     () =>
-      checkGambleProceed(positive1.score) === 0 &&
-      checkGambleProceed(positive2.score) === 0 &&
-      checkGambleProceed(negative.score) === 0,
+      checkGambleChance(positive1.score) === 0 &&
+      checkGambleChance(positive2.score) === 0 &&
+      checkGambleChance(negative.score) === 0,
     [negative.score, positive1.score, positive2.score]
   );
 
@@ -132,7 +132,7 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
         }
       };
 
-      if (target && checkGambleProceed(target.score) <= 10 && checkGambleProceed(target.score) > 0) {
+      if (target && checkGambleChance(target.score) <= 10 && checkGambleChance(target.score) > 0) {
         if (res) {
           success();
         } else {
