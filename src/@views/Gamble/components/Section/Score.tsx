@@ -42,7 +42,7 @@ const GambleResult = styled.div<{status: GambleEnchantType}>`
   width: ${rem(12)};
   height: ${rem(12)};
   border-radius: 50%;
-  border: ${({status}) => status === GambleEnchantType.PENDING && `${rem(1)} solid ${COLORS.GREY}`};
+  outline: ${({status}) => (status === GambleEnchantType.PENDING ? `${rem(1)} solid ${COLORS.GREY}` : `${rem(1)}`)};
   background-color: ${({status}) => status === GambleEnchantType.SUCCESS && COLORS.AQUA};
   background-color: ${({status}) => status === GambleEnchantType.FAIL && COLORS.GREY};
 `;
