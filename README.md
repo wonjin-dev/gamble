@@ -8,7 +8,11 @@
 <br>
 랜덤하게 생성된 요소 3가지에 대하여 gambling을 통해 전생의 동물을 확인할 수 있습니다
 
-<hr><br>
+<br>
+
+## 소리를 키고 진행해주세요 : )
+
+<br><hr><br>
 
 프로젝트를 처음 실행시키신다면 `npm run init`을 통해 프로젝트를 쉽게 확인하실 수 있습니다<br>
 `npm run start`를 통해 프로젝트를 확인하실 수 있습니다<br>
@@ -90,8 +94,6 @@ describe('[domain] testFn', () => {
 
 </details>
 
-<br>
-
 ## Features
 
 - [x] husky를 이용해 푸시 이전 단계에서 테스팅 진행 후 푸시
@@ -99,14 +101,9 @@ describe('[domain] testFn', () => {
   - [x] 단위 테스트 (Jest)
   - [x] E2E 테스트 (Cypress)
 - [x] StoryBook을 통한 공통 컴포넌트 스니펫 제공
-- [x] Headless 컴포넌트 형식으로 작성
-  - [x] 스피너
-  - [x] 모달
-  - [x] 토스트 메시지
-  - [x] 기타 대부분의 컴포넌트들
+- [x] portal을 이용하여 Headless 컴포넌트 형식으로 모달 작성 (모달, 토스트)
 - [x] 다국어 지원
   - [x] i18n이 아닌 자체 훅을 제작하여 적용
 - [x] 반응형 웹
   - [x] rem
   - [x] media query
-- [x] sound 기능 구현
