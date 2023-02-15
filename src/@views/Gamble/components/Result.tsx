@@ -7,7 +7,6 @@ import useTranslate from '@hooks/useTranslate';
 const Result: FC = () => {
   const {translate} = useTranslate();
   const {animal, firstModifier, secondModifier, img, resultSound} = useGambleResult();
-  console.log(animal, firstModifier, secondModifier);
   const textResult = useMemo(
     () => `${translate(firstModifier)} ${translate(secondModifier)} ${translate(animal)}`,
     [animal, firstModifier, secondModifier, translate]

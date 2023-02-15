@@ -27,7 +27,7 @@ const Layout: FC<LayoutProps> = ({children}) => {
 export default Layout;
 
 const Container = styled.div`
-  @media (max-width: 340px) {
+  @media (max-width: 385px) {
     display: none;
   }
 `;
@@ -41,7 +41,7 @@ const NoLayer = styled.div`
   justify-content: center;
   align-items: center;
 
-  @media (min-width: 340px) {
+  @media (min-width: 386px) {
     display: none;
   }
 `;

@@ -1,6 +1,6 @@
 import styled from '@emotion/styled';
 import {FC, Fragment} from 'react';
-import {COLORS, rem} from '@styles/theme';
+import {rem} from '@styles/theme';
 import useTranslate from '@hooks/useTranslate';
 import {IMAGES} from '@constants/image';
 import GradientShadow from '@views/@common/GradientShadow';

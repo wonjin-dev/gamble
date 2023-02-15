@@ -8,6 +8,7 @@ import useEffectOnce from '@hooks/useEffectOnce';
 import {probabilityAtom} from '@store/gamble/probability';
 import useSound from '@hooks/useSound';
 import {SOUNDS} from '@constants/sound';
+import {checkGambleChance} from '@utils/filters';
 
 export const enum AbilityType {
   STRENGTH = 'STRENGTH',
@@ -17,22 +18,28 @@ export const enum AbilityType {
 }
 
 export interface GambleSectionType {
-  positive1: GambleType;
-  positive2: GambleType;
-  negative: GambleType;
+  positive1: GamblePropertyType;
+  positive2: GamblePropertyType;
+  negative: GamblePropertyType;
 }
 
 export type GambleSectionList = keyof GambleSectionType;
 
-export interface GambleType {
+export const enum GambleEnchantType {
+  SUCCESS,
+  FAIL,
+  PENDING,
+}
+
+export interface GamblePropertyType {
   ability: AbilityType | undefined;
-  score: boolean[];
+  score: GambleEnchantType[];
 }
 
 export interface GambleProps {
   probability: number;
   isOver: boolean;
-  detail: (section: GambleSectionList) => GambleType | undefined;
+  detail: (section: GambleSectionList) => GamblePropertyType | undefined;
   enchant: (section: GambleSectionList) => void;
   reset: () => void;
 }
@@ -44,15 +51,32 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
   const [negative, setNegative] = useRecoilState(negativeAtom);
   const {play: successSound} = useSound(SOUNDS.SUCCESS);
   const {play: failSound} = useSound(SOUNDS.FAIL);
+
   const isOver = useMemo(
-    () => positive1.score.length === 10 && positive2.score.length === 10 && negative.score.length === 10,
-    [negative.score.length, positive1.score.length, positive2.score.length]
+    () =>
+      checkGambleChance(positive1.score) === 0 &&
+      checkGambleChance(positive2.score) === 0 &&
+      checkGambleChance(negative.score) === 0,
+    [negative.score, positive1.score, positive2.score]
   );
 
+  const GAMBLE_SCORE_INIT_DATA = [
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+    GambleEnchantType.PENDING,
+  ];
+
   const init = () => {
-    setPositive1({...positive1, ability: abilities[0]});
-    setPositive2({...positive2, ability: abilities[1]});
-    setNegative({...negative, ability: abilities[2]});
+    setPositive1({score: GAMBLE_SCORE_INIT_DATA, ability: abilities[0]});
+    setPositive2({score: GAMBLE_SCORE_INIT_DATA, ability: abilities[1]});
+    setNegative({score: GAMBLE_SCORE_INIT_DATA, ability: abilities[2]});
   };
 
   useEffectOnce(init);
@@ -77,22 +101,25 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
       const res = gamble(probability);
       const target = detail(section);
 
-      const attempt = (result: boolean) => {
+      const attempt = (result: GambleEnchantType) => {
+        const exist = (target && target.score.filter((score) => score !== GambleEnchantType.PENDING)) || [];
+        const fillPending = (target && target.score.filter((score) => score === GambleEnchantType.PENDING)) || [];
+
         if (target === positive1) {
-          return setPositive1({...target, score: [...target.score, result]});
+          return setPositive1({...target, score: [...exist, result, ...fillPending].slice(0, 10)});
         }
         if (target === positive2) {
-          return setPositive2({...target, score: [...target.score, result]});
+          return setPositive2({...target, score: [...exist, result, ...fillPending].slice(0, 10)});
         }
         if (target === negative) {
-          return setNegative({...target, score: [...target.score, result]});
+          return setNegative({...target, score: [...exist, result, ...fillPending].slice(0, 10)});
         }
       };
 
       const success = () => {
         if (probability > 25) {
           setProbability((prev) => prev - 10);
-          attempt(true);
+          attempt(GambleEnchantType.SUCCESS);
           successSound();
         }
       };
@@ -100,12 +127,12 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
       const fail = () => {
         if (probability < 75) {
           setProbability((prev) => prev + 10);
-          attempt(false);
+          attempt(GambleEnchantType.FAIL);
           failSound();
         }
       };
 
-      if (target && target.score.length < 10) {
+      if (target && checkGambleChance(target.score) <= 10 && checkGambleChance(target.score) > 0) {
         if (res) {
           success();
         } else {
@@ -131,9 +158,9 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
   const reset = () => {
     const newAbilities = abilitiesGenerator();
 
-    setPositive1({ability: newAbilities[0], score: []});
-    setPositive2({ability: newAbilities[1], score: []});
-    setNegative({ability: newAbilities[2], score: []});
+    setPositive1({ability: newAbilities[0], score: GAMBLE_SCORE_INIT_DATA});
+    setPositive2({ability: newAbilities[1], score: GAMBLE_SCORE_INIT_DATA});
+    setNegative({ability: newAbilities[2], score: GAMBLE_SCORE_INIT_DATA});
     setProbability(75);
   };
 
