@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import {FC, useMemo} from 'react';
+import {FC, Fragment, useMemo} from 'react';
 import BaseButton from '@components/BaseButton';
 import {COLORS, rem} from '@styles/theme';
 import {AbilityType, GambleProps, GambleSectionList} from '@hooks/gamble/useGamble';
@@ -40,35 +40,41 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
 
   const probabilityText = useMemo(() => {
     if (type === 'positive1') {
-      return `${translate('SUCCESS_PROBABILITY')}: ${probability}`;
+      return `${translate('SUCCESS_PROBABILITY')}: ${probability}%`;
     }
     if (type === 'negative') {
-      return `${translate('FAIL_PROBABILITY')}: ${probability}`;
+      return `${translate('FAIL_PROBABILITY')}: ${probability}%`;
     }
   }, [probability, translate, type]);
 
   if (details) {
     return (
-      <Container isNegativeSection={type === 'negative'}>
-        <AbilityImageWarpper>
-          <AbilityImg src={abilityImage} />
-        </AbilityImageWarpper>
+      <Fragment>
+        <main>
+          <ProbabilityWrapper isSecondSection={type === 'positive2'} isNegativeSection={type === 'negative'}>
+            {`${probabilityText}`}
+          </ProbabilityWrapper>
+          <Container isNegativeSection={type === 'negative'}>
+            <AbilityImageWarpper>
+              <AbilityImg src={abilityImage} />
+            </AbilityImageWarpper>
 
-        <Content>
-          <Ability>{translate(details.ability || 'NULL')}</Ability>
-          <Score scoreArr={details.score} />
-        </Content>
+            <Content>
+              <Ability>{translate(details.ability || 'NULL')}</Ability>
+              <Score scoreArr={details.score} />
+            </Content>
 
-        <ActionContentWrapper>
-          <div className="probability">{probabilityText}</div>
-          <BaseButton value={translate('GAMBLE')} onClick={() => enchant(type)} width={60} height={30} />
-          <ProgressionWrapper isFinish={progress === 10}>
-            <p className="progress">
-              {translate('PROGRESSION')}: {progress} / 10
-            </p>
-          </ProgressionWrapper>
-        </ActionContentWrapper>
-      </Container>
+            <ActionContentWrapper>
+              <BaseButton value={translate('GAMBLE')} onClick={() => enchant(type)} width={60} height={30} />
+              <ProgressionWrapper isFinish={progress === 10}>
+                <p className="progress">
+                  {translate('PROGRESSION')}: {progress} / 10
+                </p>
+              </ProgressionWrapper>
+            </ActionContentWrapper>
+          </Container>
+        </main>
+      </Fragment>
     );
   }
 
@@ -76,6 +82,14 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
 };
 
 export default GambleSection;
+
+const ProbabilityWrapper = styled.div<{isSecondSection: boolean; isNegativeSection: boolean}>`
+  display: ${(props) => (props.isSecondSection ? 'none' : 'flex')};
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: ${(props) => props.isNegativeSection && rem(20)};
+  margin-bottom: ${rem(6)};
+`;
 
 const Container = styled.div<{isNegativeSection: boolean}>`
   display: flex;
@@ -86,7 +100,6 @@ const Container = styled.div<{isNegativeSection: boolean}>`
   box-shadow: ${(props) =>
     props.isNegativeSection ? `0 0 ${rem(3)} 0 ${COLORS.RED}` : `0 0 ${rem(2)} 0 ${COLORS.BLACK}`};
   border-radius: ${rem(6)};
-  margin-top: ${(props) => props.isNegativeSection && rem(20)};
 `;
 
 const Content = styled.div`
@@ -118,16 +131,8 @@ const Ability = styled.p`
 const ActionContentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-  width: 30%;
-  margin-right: ${rem(6)};
-  position: relative;
-  padding-top: ${rem(35)};
-
-  .probability {
-    position: absolute;
-    top: 0;
-  }
+  justify-content: center;
+  align-items: center;
 `;
 
 const ProgressionWrapper = styled.div<{isFinish: boolean}>`
