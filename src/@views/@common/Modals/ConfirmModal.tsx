@@ -72,7 +72,7 @@ const Container = styled.div`
   width: 40%;
   min-width: ${rem(200)};
   height: 26%;
-  padding-bottom: ${rem(30)};
+  padding-bottom: ${rem(40)};
 `;
 
 const Bottom = styled.div`

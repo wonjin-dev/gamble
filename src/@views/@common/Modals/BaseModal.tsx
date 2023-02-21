@@ -44,6 +44,7 @@ export default BaseModal;
 const Container = styled.section`
   width: 100vw;
   height: 100vh;
+  padding-top: calc(env(safe-area-inset-top));
 `;
 
 const Overlay = styled.div`
@@ -54,6 +55,7 @@ const Overlay = styled.div`
   height: 1000vh;
   z-index: ${Z_INDEX.MODAL_DIM};
   background-color: ${COLORS.MODAL_DIM};
+  padding-top: calc(env(safe-area-inset-top));
 `;
 
 const Content = styled.div`
