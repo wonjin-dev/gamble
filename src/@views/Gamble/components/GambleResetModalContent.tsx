@@ -9,7 +9,10 @@ const GambleResetModalContent: FC = () => {
     <Container>
       <Title>{translate('RETRY_MESSAGE1')} ?</Title>
       <span>
-        {translate('RETRY_MESSAGE2')} <AccentText>{translate('RETRY_MESSAGE3')}</AccentText>
+        {translate('RETRY_MESSAGE2')}
+        <pre>
+          <AccentText>{translate('RETRY_MESSAGE3')}</AccentText>
+        </pre>
       </span>
     </Container>
   );
@@ -18,7 +21,13 @@ const GambleResetModalContent: FC = () => {
 export default GambleResetModalContent;
 
 const Container = styled.div`
+  display: inline-block;
+  align-items: center;
   padding: ${rem(16)};
+
+  span {
+    text-align: center;
+  }
 `;
 
 const Title = styled.h1`

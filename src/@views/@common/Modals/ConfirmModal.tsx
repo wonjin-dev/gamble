@@ -29,9 +29,6 @@ interface ConfirmModalProps {
 const ConfirmModal: FC<ConfirmModalProps> = ({
   modalProps,
   content,
-  width,
-  height,
-  style,
   cancelButtonText,
   confrimButtonText,
   onCancelClick,
@@ -42,7 +39,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
   if (modalProps.modalShowing) {
     return (
       <BaseModal modalProps={modalProps}>
-        <Container width={width} height={height} style={style}>
+        <Container>
           {content}
           <Bottom>
             <BaseButton
@@ -65,7 +62,7 @@ const ConfirmModal: FC<ConfirmModalProps> = ({
 
 export default ConfirmModal;
 
-const Container = styled.div<{width?: number; height?: number; style?: CSSProperties}>`
+const Container = styled.div`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -74,8 +71,8 @@ const Container = styled.div<{width?: number; height?: number; style?: CSSProper
   border-radius: ${rem(8)};
   width: 40%;
   min-width: ${rem(200)};
-  height: 24%;
-  padding-bottom: ${rem(30)};
+  height: 26%;
+  padding-bottom: ${rem(40)};
 `;
 
 const Bottom = styled.div`

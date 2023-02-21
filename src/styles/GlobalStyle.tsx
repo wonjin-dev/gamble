@@ -12,9 +12,9 @@ const globalStyleSheet = (): SerializedStyles => css`
   body {
     max-width: ${rem(400)};
     margin: 0 auto;
-    height: 100vh;
     background-color: ${COLORS.WHITE};
     font-size: ${BASE_FONT_SIZE}px;
+    padding-bottom: ${rem(40)};
   }
 
   button {
