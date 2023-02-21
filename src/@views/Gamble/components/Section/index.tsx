@@ -82,8 +82,9 @@ const Container = styled.div<{isNegativeSection: boolean}>`
   justify-content: space-between;
   height: ${rem(90)};
   padding: ${rem(8)};
-  outline: ${(props) =>
-    props.isNegativeSection ? `${rem(1)} solid ${COLORS.RED}` : `${rem(1)} solid ${COLORS.BLACK}`};
+
+  box-shadow: ${(props) =>
+    props.isNegativeSection ? `0 0 ${rem(3)} 0 ${COLORS.RED}` : `0 0 ${rem(2)} 0 ${COLORS.BLACK}`};
   border-radius: ${rem(6)};
   margin-top: ${(props) => props.isNegativeSection && rem(20)};
 `;
