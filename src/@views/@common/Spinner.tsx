@@ -63,8 +63,8 @@ const Spinner: FC<SpinnerProps> = ({timer = false, conditionFlag = false, size})
 export default Spinner;
 
 const Container = styled.div<{size?: number}>`
-  width: ${({size}) => (size ? rem(size) : '100%')};
-  height: ${({size}) => (size ? rem(size) : '100%')};
+  width: ${({size}) => (size ? rem(size) : '100vw')};
+  height: ${({size}) => (size ? rem(size) : '100vh')};
   background-color: white;
   position: absolute;
   top: 0;

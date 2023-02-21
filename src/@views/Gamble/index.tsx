@@ -1,7 +1,7 @@
 import {FC, Fragment, useCallback} from 'react';
 import styled from '@emotion/styled';
 import BaseButton from '@components/BaseButton';
-import {rem} from '@styles/theme';
+import {COLORS, rem} from '@styles/theme';
 import useGamble, {AbilityType} from '@hooks/gamble/useGamble';
 import {useModal} from '@hooks/useModal';
 import ConfirmModal from '@views/@common/Modals/ConfirmModal';
@@ -28,20 +28,22 @@ const GambleScreen: FC<Props> = ({abilities}) => {
 
   return (
     <Fragment>
-      <GambleBoard isOver={gamble.isOver} gamble={gamble} />
-      <ButtonsWrapper>
-        <BaseButton
-          value={translate('RETRY')}
-          width={250}
-          onClick={() => {
-            if (gamble.isOver) {
-              gamble.reset();
-            } else {
-              resetModalProps.showModal();
-            }
-          }}
-        />
-      </ButtonsWrapper>
+      <Container>
+        <GambleBoard isOver={gamble.isOver} gamble={gamble} />
+        <ButtonsWrapper>
+          <BaseButton
+            value={translate('RETRY')}
+            width={250}
+            onClick={() => {
+              if (gamble.isOver) {
+                gamble.reset();
+              } else {
+                resetModalProps.showModal();
+              }
+            }}
+          />
+        </ButtonsWrapper>
+      </Container>
       <ConfirmModal
         modalProps={resetModalProps}
         onConfirmClick={handleResetClick}
@@ -52,6 +54,11 @@ const GambleScreen: FC<Props> = ({abilities}) => {
 };
 
 export default GambleScreen;
+
+const Container = styled.div`
+  height: 100vh;
+  background-color: ${COLORS.WHITE};
+`;
 
 const ButtonsWrapper = styled.div`
   display: flex;
