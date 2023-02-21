@@ -69,9 +69,7 @@ const Container = styled.div`
   transform: translate(-50%, -50%);
   background-color: ${COLORS.WHITE};
   border-radius: ${rem(8)};
-  width: 40%;
   min-width: ${rem(200)};
-  height: 26%;
   padding-bottom: ${rem(40)};
 `;
 

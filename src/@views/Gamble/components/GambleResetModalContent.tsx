@@ -7,7 +7,7 @@ const GambleResetModalContent: FC = () => {
   const {translate} = useTranslate();
   return (
     <Container>
-      <Title>{translate('RETRY_MESSAGE1')} ?</Title>
+      <Title>{translate('RETRY_MESSAGE1')}</Title>
       <span>
         {translate('RETRY_MESSAGE2')}
         <pre>

@@ -13,7 +13,7 @@ export const STRINGS = {
   FAIL_PROBABILITY: {KO: '실패 확률', EN: 'fail probability'},
   GAMBLE: {KO: '강화', EN: 'GAMBLE'},
   PROGRESSION: {KO: '진행 상황', EN: 'progression'},
-  RETRY_MESSAGE1: {KO: '정말로 다시 뽑으시겠습니까', EN: 'Are you sure you want to retry?  '},
+  RETRY_MESSAGE1: {KO: '정말로 다시 뽑으시겠습니까?', EN: 'Are you sure you want to retry?  '},
   RETRY_MESSAGE2: {KO: '현재까지 기록된 결과는', EN: 'Results recorded so far'},
   RETRY_MESSAGE3: {KO: '저장되지 않습니다', EN: 'will not be saved'},
   RESULT_MESSAGE1: {KO: '당신은 전생에', EN: 'In your previous life'},

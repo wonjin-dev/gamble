@@ -10,9 +10,9 @@
 
 <br>
 
-## 소리를 키고 진행해주세요 : )
+**_소리를 키고 진행해주세요 : )_**
 
-<br><hr><br>
+<hr>
 
 프로젝트를 처음 실행시키신다면 `npm run init`을 통해 프로젝트를 쉽게 확인하실 수 있습니다<br>
 `npm run start`를 통해 프로젝트를 확인하실 수 있습니다<br>
@@ -96,7 +96,7 @@ describe('[domain] testFn', () => {
 
 ## Features
 
-- [x] husky를 이용해 푸시 이전 단계에서 테스팅 진행 후 푸시
+- [x] husky를 이용해 푸시 이전 단계에서 테스팅
   - [x] 정적 검사 (Lint & Prettier)
   - [x] 단위 테스트 (Jest)
   - [x] E2E 테스트 (Cypress)
