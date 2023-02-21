@@ -1,14 +1,15 @@
 # GAMBLE
 
-**_로스트 아크 강화 시스템인 어빌리티 스톤 세공(일명 돌 깎기)에서 착안하여 생성한 프로젝트 입니다_**
+**_로스트 아크_** 강화 시스템인 **_어빌리티 스톤 세공_**(일명 돌 깎기)에서 착안하여 생성한 프로젝트 입니다<br>
+폴더 구조 및 컴포넌트 추상화 레벨에 많은 신경을 썼습니다
 
-폴더 구조 및 컴포넌트 추상화 레벨에 많은 신경을 썼습니다.
+> 관심사 분리를 위한 hook 분리
+
+<br>
 
 <h2>전생의 나는 어떤 동물이었을까요 ?</h2>
-<br>
-랜덤하게 생성된 요소 3가지에 대하여 gambling을 통해 전생의 동물을 확인할 수 있습니다
-
-<br>
+<strong>랜덤하게 생성된 능력 3가지에 대한 gamble을 통해 전생의 동물을 확인할 수 있습니다</strong>
+<br><br><br>
 
 **_소리를 키고 진행해주세요 : )_**
 
@@ -19,6 +20,8 @@
 `npm run storybook`을 통해 스토리북을 시작할 수 있습니다<br>
 `npm run test`를 통해 단위 테스트를 진행할 수 있습니다<br>
 `npm run e2e`를 통해 cypress를 이용한 프로젝트 통합 테스트를 진행할 수 있습니다
+
+<br>
 
 ## TechStack
 
@@ -32,7 +35,23 @@
   <img src="https://user-images.githubusercontent.com/82315118/209647166-a36b57b5-61dc-4e08-8406-b8764eb9d940.png" width="40" height="40" />
 </div>
 
-<br>
+<br><br>
+
+## Features
+
+- [x] husky를 이용해 푸시 이전 단계에서 테스팅
+  - [x] 정적 검사 (Lint & Prettier)
+  - [x] 단위 테스트 (Jest)
+  - [x] E2E 테스트 (Cypress)
+- [x] StoryBook을 통한 공통 컴포넌트 스니펫 제공
+- [x] portal을 이용하여 Headless 컴포넌트 형식으로 모달 작성
+  > 모달, 토스트, ...
+- [x] 다국어 지원
+  > i18n이 아닌 자체 훅을 제작하여 적용
+- [x] 반응형 웹
+  > rem, media-query, ...
+- [x] 모바일 환경 대응
+  > 크로스 브라우징 (safari 스타일링 이슈, ...)
 
 <details>
   <summary>
@@ -80,30 +99,4 @@ ex) `feat` / `wj` / `set-up-project`
 ETC: camelCase
 ```
 
-<hr>
-
-<h3>
-  test
-</h3>
-
-```
-describe('[domain] testFn', () => {
-    it('expect Message', () => {})
-});
-```
-
 </details>
-
-## Features
-
-- [x] husky를 이용해 푸시 이전 단계에서 테스팅
-  - [x] 정적 검사 (Lint & Prettier)
-  - [x] 단위 테스트 (Jest)
-  - [x] E2E 테스트 (Cypress)
-- [x] StoryBook을 통한 공통 컴포넌트 스니펫 제공
-- [x] portal을 이용하여 Headless 컴포넌트 형식으로 모달 작성 (모달, 토스트)
-- [x] 다국어 지원
-  - [x] i18n이 아닌 자체 훅을 제작하여 적용
-- [x] 반응형 웹
-  - [x] rem
-  - [x] media query
