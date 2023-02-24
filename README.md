@@ -53,6 +53,8 @@
 - [x] 모바일 환경 대응
   > 크로스 브라우징 (safari 스타일링 이슈, ...)
 - [x] 웹 접근성 및 성능 최적화
+<img width="400" src="https://user-images.githubusercontent.com/82315118/221235286-625cf4ce-9c12-4850-be70-a381afb644d0.png" />
+
 
 <details>
   <summary>
