@@ -13,7 +13,7 @@ const GNB: FC = () => {
       <Container>
         <h1>GAMBLE</h1>
         <LocaleButton onClick={changeLangType}>
-          <LocaleButtonImage src={IMAGES.WORLD} />
+          <LocaleButtonImage src={IMAGES.WORLD} alt={'언어 변경 아이콘'} />
         </LocaleButton>
       </Container>
       <GradientWrapper>

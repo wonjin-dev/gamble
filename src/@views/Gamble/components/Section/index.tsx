@@ -56,7 +56,7 @@ const GambleSection: FC<Props> = ({type, gamble}) => {
           </ProbabilityWrapper>
           <Container isNegativeSection={type === 'negative'}>
             <AbilityImageWarpper>
-              <AbilityImg src={abilityImage} />
+              <AbilityImg src={abilityImage} alt={'능력 아이콘'} />
             </AbilityImageWarpper>
 
             <Content>
