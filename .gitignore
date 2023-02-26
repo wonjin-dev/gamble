@@ -6,5 +6,3 @@ storybook-static
 cypress/videos
 cypress/screenshots
 .swc
-package-lock.json
-yarn.lock
