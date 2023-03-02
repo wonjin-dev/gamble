@@ -1,6 +1,12 @@
-# 🐛 ISSUE ✨
+---
+name: bug_report
+about: Report bug
+title: ':bug: '
+labels: bug
+assignees: wonjin-dev
+---
 
-<!-- 에러 또는 개발됐으면 하는 기능을 올려주세요 : ) -->
+# 🐛
 
 ## 요약 (Summary)
 
