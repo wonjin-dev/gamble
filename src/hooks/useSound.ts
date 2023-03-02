@@ -2,7 +2,7 @@ import {useCallback, useState} from 'react';
 import useEffectOnce from './useEffectOnce';
 
 const useSound = (src: string) => {
-  const [sound, setSound] = useState<HTMLAudioElement>();
+  const [sound, setSound] = useState<HTMLAudioElement | undefined>();
 
   useEffectOnce(() => {
     setSound(new Audio(src));

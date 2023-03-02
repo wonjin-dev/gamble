@@ -12,5 +12,7 @@ export const IMAGES = {
   PROBOSCIS_MONKEY: '/img/PROBOSCIS_MONKEY.png',
   WOLF: '/img/WOLF.png',
   SPINNER: '/icon/spinner.svg',
-  WORLD: 'icon/world.png',
+  WORLD: '/icon/world.png',
+  SOUND: '/icon/sound.png',
+  SOUND_MUTE: '/icon/sound-mute.png',
 };
