@@ -1,5 +1,5 @@
 import {useCallback, useMemo} from 'react';
-import {useRecoilState} from 'recoil';
+import {useRecoilState, useRecoilValue} from 'recoil';
 import {abilitiesGenerator, gamble} from '@utils/generators';
 import {positive1Atom} from '@store/gamble/positive1';
 import {positive2Atom} from '@store/gamble/positive2';
@@ -9,6 +9,7 @@ import {probabilityAtom} from '@store/gamble/probability';
 import useSound from '@hooks/useSound';
 import {SOUNDS} from '@constants/sound';
 import {checkGambleChance} from '@utils/filters';
+import {soundMuteAtom} from '@store/sound';
 
 export const enum AbilityType {
   STRENGTH = 'STRENGTH',
@@ -49,6 +50,7 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
   const [positive1, setPositive1] = useRecoilState(positive1Atom);
   const [positive2, setPositive2] = useRecoilState(positive2Atom);
   const [negative, setNegative] = useRecoilState(negativeAtom);
+  const muteMode = useRecoilValue(soundMuteAtom);
   const {play: successSound} = useSound(SOUNDS.SUCCESS);
   const {play: failSound} = useSound(SOUNDS.FAIL);
 
@@ -120,7 +122,9 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
         if (probability > 25) {
           setProbability((prev) => prev - 10);
           attempt(GambleEnchantType.SUCCESS);
-          successSound();
+          if (!muteMode) {
+            successSound();
+          }
         }
       };
 
@@ -128,7 +132,9 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
         if (probability < 75) {
           setProbability((prev) => prev + 10);
           attempt(GambleEnchantType.FAIL);
-          failSound();
+          if (!muteMode) {
+            failSound();
+          }
         }
       };
 
@@ -150,6 +156,7 @@ const useGamble = (abilities: AbilityType[]): GambleProps => {
       setPositive2,
       setNegative,
       setProbability,
+      muteMode,
       successSound,
       failSound,
     ]
