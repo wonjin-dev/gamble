@@ -1,12 +1,15 @@
 import styled from '@emotion/styled';
 import {FC, Fragment, memo, useMemo} from 'react';
+import {useRecoilValue} from 'recoil';
 import {rem} from '@styles/theme';
 import useGambleResult from '@hooks/gamble/useGambleResult';
 import useTranslate from '@hooks/useTranslate';
+import {soundMuteAtom} from '@store/sound';
 
 const Result: FC = () => {
   const {translate} = useTranslate();
   const {animal, firstModifier, secondModifier, img, resultSound} = useGambleResult();
+  const muteMode = useRecoilValue(soundMuteAtom);
 
   const textResult = useMemo(
     () => `${translate(firstModifier)} ${translate(secondModifier)} ${translate(animal)}`,
@@ -15,7 +18,9 @@ const Result: FC = () => {
 
   // 스피너의 시간을 의도적으로 조정했기 때문에 필요한 로직
   setTimeout(() => {
-    resultSound.play();
+    if (!muteMode) {
+      resultSound.play();
+    }
   }, 1000);
 
   return (

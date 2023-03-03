@@ -7,6 +7,7 @@ const globalStyleSheet = (): SerializedStyles => css`
     padding: 0;
     margin: 0;
     background-color: ${COLORS.DARK_GREY};
+    min-height: 100vh;
   }
 
   body {
