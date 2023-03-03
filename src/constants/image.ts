@@ -15,4 +15,6 @@ export const IMAGES = {
   WORLD: '/icon/world.png',
   SOUND: '/icon/sound.png',
   SOUND_MUTE: '/icon/sound-mute.png',
+  RIGHT_ARROW: 'icon/right-arrow.png',
+  LEFT_ARROW: 'icon/left-arrow.png',
 };
