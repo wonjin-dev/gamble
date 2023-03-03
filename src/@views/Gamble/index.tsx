@@ -28,7 +28,7 @@ const GambleScreen: FC<Props> = ({abilities}) => {
 
   return (
     <Fragment>
-      <Container>
+      <main>
         <GambleBoard isOver={gamble.isOver} gamble={gamble} />
         <ButtonsWrapper>
           <BaseButton
@@ -43,7 +43,7 @@ const GambleScreen: FC<Props> = ({abilities}) => {
             }}
           />
         </ButtonsWrapper>
-      </Container>
+      </main>
       <ConfirmModal
         modalProps={resetModalProps}
         onConfirmClick={handleResetClick}
@@ -54,11 +54,6 @@ const GambleScreen: FC<Props> = ({abilities}) => {
 };
 
 export default GambleScreen;
-
-const Container = styled.div`
-  height: 100vh;
-  background-color: ${COLORS.WHITE};
-`;
 
 const ButtonsWrapper = styled.div`
   display: flex;
