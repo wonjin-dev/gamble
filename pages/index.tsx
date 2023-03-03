@@ -1,18 +1,12 @@
 import {ReactElement} from 'react';
-import GambleScreen from '@views/Gamble/index';
-import {AbilityType} from '@hooks/gamble/useGamble';
-import {abilitiesGenerator} from '@utils/generators';
 import Layout from '@views/@common/Layout';
 import GNB from '@views/@common/Layout/components/GNB';
+import HomeScreen from '@views/Home';
 import {NextLayoutPage} from './_app';
 
-interface Props {
-  abilities: AbilityType[];
-}
+const HomePage: NextLayoutPage = () => <HomeScreen />;
 
-const GamblePage: NextLayoutPage<Props> = ({abilities}) => <GambleScreen abilities={abilities} />;
-
-GamblePage.layout = (page: ReactElement) => {
+HomePage.layout = (page: ReactElement) => {
   return (
     <Layout>
       <GNB />
@@ -21,12 +15,4 @@ GamblePage.layout = (page: ReactElement) => {
   );
 };
 
-GamblePage.getInitialProps = () => {
-  const initData = abilitiesGenerator();
-
-  return {
-    abilities: initData,
-  };
-};
-
-export default GamblePage;
+export default HomePage;
