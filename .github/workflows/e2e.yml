@@ -1,19 +1,21 @@
-name: End-to-End test
-on: [push, pull_request]
+name: E2E Tests
+
+on:
+  pull_request:
     branches:
-      - 'master'
+      - master
+
 jobs:
-  cypress-run:
+  install:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: pre E2E
-        uses: cypress-io/github-action@v1
-        with:
-          build: npm run build
-          start: npm start
-          wait-on: http://localhost:3000
-
       - name: Cypress run
-        run: npm run build
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+          build: yarn build
+          start: yarn start
+          wait-on: 'http://localhost:3000'

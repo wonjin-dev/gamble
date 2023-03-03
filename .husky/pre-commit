@@ -12,4 +12,3 @@ fi
 npm run lint
 npm run prettier
 npm run test-ci
-npm run e2e
