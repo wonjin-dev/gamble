@@ -34,19 +34,23 @@ const OnboardingModal: FC<Props> = ({modalProps}) => {
     [step]
   );
 
-  return (
-    <BaseModal modalProps={modalProps}>
-      <Container>
-        <IndicatorButtonWrapper onClick={() => onIndicatorClick(IndicatorButtonType.PREV)}>
-          <IndicatorImg src={IMAGES.LEFT_ARROW} alt="온보딩 모달 이전 화면 이동 버튼" />
-        </IndicatorButtonWrapper>
-        <Content>{step}</Content>
-        <IndicatorButtonWrapper onClick={() => onIndicatorClick(IndicatorButtonType.NEXT)}>
-          <IndicatorImg src={IMAGES.RIGHT_ARROW} alt="온보딩 모달 다음 화면 이동 버튼 " />
-        </IndicatorButtonWrapper>
-      </Container>
-    </BaseModal>
-  );
+  if (modalProps.modalShowing) {
+    return (
+      <BaseModal modalProps={modalProps}>
+        <Container>
+          <IndicatorButtonWrapper onClick={() => onIndicatorClick(IndicatorButtonType.PREV)}>
+            <IndicatorImg src={IMAGES.LEFT_ARROW} alt="온보딩 모달 이전 화면 이동 버튼" />
+          </IndicatorButtonWrapper>
+          <Content>{step}</Content>
+          <IndicatorButtonWrapper onClick={() => onIndicatorClick(IndicatorButtonType.NEXT)}>
+            <IndicatorImg src={IMAGES.RIGHT_ARROW} alt="온보딩 모달 다음 화면 이동 버튼 " />
+          </IndicatorButtonWrapper>
+        </Container>
+      </BaseModal>
+    );
+  }
+
+  return null;
 };
 
 export default OnboardingModal;
