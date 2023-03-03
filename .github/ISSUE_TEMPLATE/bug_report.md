@@ -6,9 +6,7 @@ labels: bug
 assignees: wonjin-dev
 ---
 
-# 🐛
-
-## 요약 (Summary)
+# 🐛 요약 (Summary)
 
 <br>
 
