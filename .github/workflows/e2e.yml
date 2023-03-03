@@ -1,0 +1,21 @@
+name: E2E Tests
+
+on:
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+        with:
+          browser: chrome
+          build: yarn build
+          start: yarn start
+          wait-on: 'http://localhost:3000'

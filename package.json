@@ -2,10 +2,10 @@
   "name": "gamble",
   "version": "0.1",
   "scripts": {
-    "init": "npm install && npm run start",
+    "init": "yarn && yarn build && yarn start",
     "dev": "next dev",
     "build": "next build",
-    "start": "next build && next start",
+    "start": "next start",
     "lint": "next lint",
     "prepare": "husky install",
     "prettier": "prettier -w ./src/**/**/*.tsx",
