@@ -1,8 +1,7 @@
 {
   "name": "gamble",
-  "version": "0.1",
+  "version": "1.0",
   "scripts": {
-    "init": "yarn && yarn build && yarn start",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

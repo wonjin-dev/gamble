@@ -6,7 +6,7 @@ const completeGamble = (gambleClick: () => void) => {
 
 describe('gamble', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000');
+    cy.visit('http://localhost:3000/gamble');
   });
 
   it('다시 뽑기', () => {

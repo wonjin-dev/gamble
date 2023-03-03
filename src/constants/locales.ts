@@ -22,6 +22,7 @@ export const STRINGS = {
     KO: '다시 뽑기',
     EN: 'RETRY',
   },
+  GO_TO_GAMBLE: {KO: 'GAMBLE 하러 가기', EN: 'GO TO GAMBLE'},
   BEAUTY: {KO: '매력', EN: 'BEAUTY'},
   BEAUTY_POSITIVE_MAIN_MODIFIER: {KO: '멋있고', EN: 'Handsome'},
   BEAUTY_POSITIVE_SUB_MODIFIER: {KO: '멋있는', EN: ' & Handsome'},
