@@ -2,8 +2,7 @@ name: 'build-test-every-push'
 
 on: push
 jobs:
-  test:
-    name: build test
+  build-test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3

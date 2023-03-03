@@ -1,4 +1,4 @@
-name: E2E Tests
+name: E2E on PR to master
 
 on:
   pull_request:
