@@ -4,7 +4,7 @@ import {AbilityType} from '@hooks/gamble/useGamble';
 import {abilitiesGenerator} from '@utils/generators';
 import Layout from '@views/@common/Layout';
 import GNB from '@views/@common/Layout/components/GNB';
-import {NextLayoutPage} from './_app';
+import {NextLayoutPage} from 'pages/_app';
 
 interface Props {
   abilities: AbilityType[];
